@@ -1,8 +1,8 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Theme, GlobalStyles } from "@/constants";
+import { GlobalStyles } from "@/constants";
 import { useTranslation } from "@/languages/useTranslation";
 import { Input } from "@/components/Input";
 import { type FuelFormData, fuelSchema } from "@/types/fuel-schema";
@@ -20,7 +20,7 @@ import { FuelDeletionModal } from "@/components/forms/FuelDeletionModal";
 import { Button } from "@/components/Button";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import { useStatistics } from "@/repositories/statistics";
-import { numberFormat } from "@/utils/number-format";
+import { numberFormat, numberToPersianWord } from "@/utils/number-format";
 import { useActiveVehicle } from "@/repositories/active-vehicle";
 import { SoldVehicleNotice } from "@/components/SoldVehicleNotice";
 import { Toast } from "@/components/CustomToast";
@@ -286,19 +286,17 @@ export default function FuelForm() {
         control={control}
         name="odometer"
         render={({ field: { value, onChange, onBlur } }) => (
-          <>
-            <Input
-              label={t("fuel.odometer")}
-              value={value?.toString() ?? ""}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              keyboardType="numeric"
-              placeholder={t("fuel.odometerPlaceholder")}
-              style={{ direction: "ltr" }}
-              error={errors?.odometer?.message}
-              help={`${t("dashboard.latestOdometer")} ${numberFormat(statistics.distance.latestOdometer, { isRTL })}`}
-            />
-          </>
+          <Input
+            label={t("fuel.odometer")}
+            value={value?.toString() ?? ""}
+            onBlur={onBlur}
+            onChangeText={onChange}
+            keyboardType="numeric"
+            placeholder={t("fuel.odometerPlaceholder")}
+            style={{ direction: "ltr" }}
+            error={errors?.odometer?.message}
+            help={`${t("dashboard.latestOdometer")} ${numberFormat(statistics.distance.latestOdometer, { isRTL })}`}
+          />
         )}
       />
 
@@ -328,45 +326,43 @@ export default function FuelForm() {
           control={control}
           name="pricePerLiter"
           render={({ field: { value, onChange, onBlur } }) => (
-            <>
-              <Input
-                label={t("fuel.price")}
-                value={value?.toString() ?? ""}
-                onBlur={onBlur}
-                onChangeText={(value) => {
-                  setLastEdited("pricePerLiter");
-                  onChange(value);
-                }}
-                keyboardType="decimal-pad"
-                placeholder={t("fuel.pricePlaceholder")}
-                style={{ direction: "ltr", flex: 1 }}
-                startElement={<Text>{currencySymbol}</Text>}
-                error={errors?.pricePerLiter?.message}
-              />
-            </>
+            <Input
+              label={t("fuel.price")}
+              value={value?.toString() ?? ""}
+              onBlur={onBlur}
+              onChangeText={(value) => {
+                setLastEdited("pricePerLiter");
+                onChange(value);
+              }}
+              keyboardType="decimal-pad"
+              placeholder={t("fuel.pricePlaceholder")}
+              style={{ direction: "ltr", flex: 1 }}
+              startElement={<Text>{currencySymbol}</Text>}
+              error={errors?.pricePerLiter?.message}
+            />
           )}
         />
       </View>
+
       <Controller
         control={control}
         name="totalCost"
         render={({ field: { value, onChange, onBlur } }) => (
-          <>
-            <Input
-              label={t("fuel.totalCost")}
-              value={value?.toString() ?? ""}
-              onBlur={onBlur}
-              onChangeText={(value) => {
-                setLastEdited("totalCost");
-                onChange(value);
-              }}
-              keyboardType="decimal-pad"
-              placeholder={t("fuel.totalCostPlaceholder")}
-              style={{ direction: "ltr" }}
-              startElement={<Text>{currencySymbol}</Text>}
-              error={errors?.totalCost?.message}
-            />
-          </>
+          <Input
+            label={t("fuel.totalCost")}
+            value={value?.toString() ?? ""}
+            onBlur={onBlur}
+            onChangeText={(value) => {
+              setLastEdited("totalCost");
+              onChange(value);
+            }}
+            keyboardType="decimal-pad"
+            placeholder={t("fuel.totalCostPlaceholder")}
+            style={{ direction: "ltr" }}
+            startElement={<Text>{currencySymbol}</Text>}
+            error={errors?.totalCost?.message}
+            help={isRTL ? numberToPersianWord(Number(totalCost)) : ""}
+          />
         )}
       />
 

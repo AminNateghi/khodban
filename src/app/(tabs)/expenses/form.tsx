@@ -23,7 +23,7 @@ import { Button } from "@/components/Button";
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import { useStatistics } from "@/repositories/statistics";
-import { numberFormat } from "@/utils/number-format";
+import { numberFormat, numberToPersianWord } from "@/utils/number-format";
 import dayjs from "dayjs";
 import { useActiveVehicle } from "@/repositories/active-vehicle";
 import { SoldVehicleNotice } from "@/components/SoldVehicleNotice";
@@ -88,6 +88,7 @@ export default function ExpenseForm() {
     defaultValues: { ...defaultValues },
   });
   const selectedExpenseType = watch("type") as ExpenseType;
+  const total = watch("amount");
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -290,6 +291,7 @@ export default function ExpenseForm() {
             style={{ direction: "ltr" }}
             startElement={<Text>{currencySymbol}</Text>}
             error={errors?.amount?.message}
+            help={isRTL ? numberToPersianWord(Number(total)) : ""}
           />
         )}
       />

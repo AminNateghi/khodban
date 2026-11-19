@@ -24,7 +24,7 @@ import { ServiceDeletionModal } from "@/components/forms/ServiceDeletionModal";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import { useStatistics } from "@/repositories/statistics";
 import { DATE_FORMAT } from "@/utils/date-format";
-import { numberFormat } from "@/utils/number-format";
+import { numberFormat, numberToPersianWord } from "@/utils/number-format";
 import dayjs from "dayjs";
 import { useActiveVehicle } from "@/repositories/active-vehicle";
 import { SoldVehicleNotice } from "@/components/SoldVehicleNotice";
@@ -87,6 +87,7 @@ export default function ServiceForm() {
     defaultValues: { ...defaultValues },
   });
   const selectedServiceTypes = watch("type") as ServiceType[];
+  const total = watch("cost");
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -291,6 +292,7 @@ export default function ServiceForm() {
             style={{ direction: "ltr" }}
             startElement={<Text>{currencySymbol}</Text>}
             error={errors?.cost?.message}
+            help={isRTL ? numberToPersianWord(Number(total)) : ""}
           />
         )}
       />

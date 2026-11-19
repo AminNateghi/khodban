@@ -39,6 +39,7 @@ import { Toast } from "@/components/CustomToast";
 import { IconButton } from "@/components/IconButton";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react-native";
 import { Text } from "@/components/Text";
+import { numberToPersianWord } from "@/utils/number-format";
 
 const defaultValues: VehicleFormData = {
   customName: "",
@@ -89,6 +90,8 @@ export default function VehicleFormScreen() {
     resolver: zodResolver(schema),
     defaultValues: { ...defaultValues },
   });
+  const purchasePrice = watch("purchasePrice");
+  const soldPrice = watch("soldPrice");
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -283,6 +286,7 @@ export default function VehicleFormScreen() {
               keyboardType="decimal-pad"
               startElement={<Text>{currencySymbol}</Text>}
               style={{ direction: "ltr" }}
+              help={isRTL ? numberToPersianWord(Number(purchasePrice)) : ""}
             />
           </View>
         )}
@@ -341,6 +345,7 @@ export default function VehicleFormScreen() {
                 style={{ direction: "ltr" }}
                 startElement={<Text>{currencySymbol}</Text>}
                 error={errors.soldPrice?.message}
+                help={isRTL ? numberToPersianWord(Number(soldPrice)) : ""}
               />
             )}
           />
