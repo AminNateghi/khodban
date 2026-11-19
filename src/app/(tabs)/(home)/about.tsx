@@ -10,11 +10,12 @@ import {
   View,
 } from "react-native";
 import { Text } from "@/components/Text";
-import { ShareIcon } from "lucide-react-native";
+import { ArrowLeftIcon, ArrowRightIcon, ShareIcon } from "lucide-react-native";
 import { Theme } from "@/constants";
 import { Card } from "@/components/Card";
 import { convertEnglishNumberToPersian } from "@/utils/number-format";
-import { useNavigation } from "expo-router";
+import { router, useNavigation } from "expo-router";
+import { IconButton } from "@/components/IconButton";
 
 export default function AboutScreen() {
   const { t, isRTL } = useTranslation();
@@ -27,8 +28,20 @@ export default function AboutScreen() {
       title: t("drawer.itemAbout"),
       headerLargeTitle: true,
       headerTitleAlign: "center",
+      headerLeft: () =>
+        isRTL ? (
+          <></>
+        ) : (
+          <IconButton icon={<ArrowLeftIcon />} onPress={() => router.back()} />
+        ),
+      headerRight: () =>
+        isRTL ? (
+          <IconButton icon={<ArrowRightIcon />} onPress={() => router.back()} />
+        ) : (
+          <></>
+        ),
     });
-  }, [navigation, t]);
+  }, [navigation, t, isRTL]);
 
   useEffect(() => {
     setCurrentVersion(Constants.expoConfig?.version ?? "0.0.0");
@@ -37,8 +50,6 @@ export default function AboutScreen() {
   const handleMyWebSite = () => {
     Linking.openURL("https://nateghi.xyz/");
   };
-
- 
 
   return (
     <ScrollView
@@ -74,7 +85,6 @@ export default function AboutScreen() {
             </Text>
           </Pressable>
         </View>
-        
       </Card>
     </ScrollView>
   );
@@ -91,7 +101,7 @@ const styles = StyleSheet.create({
   developerContent: {
     flexDirection: "row",
     gap: 10,
-    marginBottom: 16,
+    marginBottom: 10,
     alignItems: "baseline",
     justifyContent: "center",
   },

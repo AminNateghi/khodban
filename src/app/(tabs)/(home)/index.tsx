@@ -141,7 +141,7 @@ export default function DashboardScreen() {
 
           <Button
             title={`${t("reports.title")}...`}
-            variant="plain"
+            variant="subtle"
             color="blue"
             onPress={() => router.push("/(tabs)/(home)/reports")}
           />

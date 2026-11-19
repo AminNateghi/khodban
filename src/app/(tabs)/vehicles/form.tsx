@@ -26,6 +26,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { VehicleDeletionModal } from "@/components/forms/VehicleDeletionModal";
 import { SwitchToggle } from "@/components/SwitchToggle";
 import { Toast } from "@/components/CustomToast";
+import { IconButton } from "@/components/IconButton";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react-native";
 
 const defaultValues: VehicleFormData = {
   customName: "",
@@ -79,8 +81,20 @@ export default function VehicleFormScreen() {
       title: isEditMode ? t("vehicles.updateTitle") : t("vehicles.createTitle"),
       headerLargeTitle: true,
       headerTitleAlign: "center",
+      headerLeft: () =>
+        isRTL ? (
+          <></>
+        ) : (
+          <IconButton icon={<ArrowLeftIcon />} onPress={() => router.back()} />
+        ),
+      headerRight: () =>
+        isRTL ? (
+          <IconButton icon={<ArrowRightIcon />} onPress={() => router.back()} />
+        ) : (
+          <></>
+        ),
     });
-  }, [navigation, t, isEditMode]);
+  }, [navigation, t, isEditMode, isRTL]);
 
   useEffect(() => {
     if (!id) {

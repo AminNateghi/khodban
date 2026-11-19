@@ -1,5 +1,6 @@
 import { Button } from "@/components/Button";
 import { Card } from "@/components/Card";
+import { IconButton } from "@/components/IconButton";
 import { SelectPicker } from "@/components/SelectPicker";
 import {
   DEFAULT_CURRENCY_SYMBOL,
@@ -20,6 +21,7 @@ import {
 import { type SettingsFormData, settingsSchema } from "@/types/profile-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { router, useNavigation } from "expo-router";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react-native";
 import { useEffect, useLayoutEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { ScrollView, StyleSheet } from "react-native";
@@ -41,8 +43,20 @@ export default function SettingsScreen() {
       title: t("drawer.itemSettings"),
       headerLargeTitle: true,
       headerTitleAlign: "center",
+      headerLeft: () =>
+        isRTL ? (
+          <></>
+        ) : (
+          <IconButton icon={<ArrowLeftIcon />} onPress={() => router.back()} />
+        ),
+      headerRight: () =>
+        isRTL ? (
+          <IconButton icon={<ArrowRightIcon />} onPress={() => router.back()} />
+        ) : (
+          <></>
+        ),
     });
-  }, [navigation, t]);
+  }, [navigation, t, isRTL]);
 
   const schema = settingsSchema(t);
   const {

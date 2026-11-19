@@ -24,6 +24,8 @@ import { useActiveVehicle } from "@/repositories/active-vehicle";
 import { SoldVehicleNotice } from "@/components/SoldVehicleNotice";
 import { Toast } from "@/components/CustomToast";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
+import { IconButton } from "@/components/IconButton";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react-native";
 
 export default function ReminderForm() {
   const params = useLocalSearchParams<{ id?: string }>();
@@ -45,8 +47,20 @@ export default function ReminderForm() {
       title: id ? t("reminders.updateTitle") : t("reminders.createTitle"),
       headerLargeTitle: true,
       headerTitleAlign: "center",
+      headerLeft: () =>
+        isRTL ? (
+          <></>
+        ) : (
+          <IconButton icon={<ArrowLeftIcon />} onPress={() => router.back()} />
+        ),
+      headerRight: () =>
+        isRTL ? (
+          <IconButton icon={<ArrowRightIcon />} onPress={() => router.back()} />
+        ) : (
+          <></>
+        ),
     });
-  }, [id, navigation, t]);
+  }, [id, navigation, t, isRTL]);
 
   useEffect(() => {
     if (isSuccess && reminder) {

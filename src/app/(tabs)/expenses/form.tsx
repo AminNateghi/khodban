@@ -38,6 +38,8 @@ import {
   useGetReminder,
   useGetReminderForExpense,
 } from "@/repositories/reminder-repository";
+import { IconButton } from "@/components/IconButton";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react-native";
 
 const defaultValues = {
   type: "Reimbursement",
@@ -91,8 +93,20 @@ export default function ExpenseForm() {
       headerLargeTitle: true,
       headerTitleAlign: "center",
       title: isEditMode ? t("expenses.updateTitle") : t("expenses.createTitle"),
+      headerLeft: () =>
+        isRTL ? (
+          <></>
+        ) : (
+          <IconButton icon={<ArrowLeftIcon />} onPress={() => router.back()} />
+        ),
+      headerRight: () =>
+        isRTL ? (
+          <IconButton icon={<ArrowRightIcon />} onPress={() => router.back()} />
+        ) : (
+          <></>
+        ),
     });
-  }, [navigation, t, isEditMode]);
+  }, [navigation, t, isEditMode, isRTL]);
 
   useEffect(() => {
     if (!id) {

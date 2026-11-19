@@ -4,8 +4,10 @@ import changelogFa from "./../../../../CHANGELOG-FA.md";
 import { Text } from "@/components/Text";
 import { Theme } from "@/constants";
 import { useTranslation } from "@/languages/useTranslation";
-import { useNavigation } from "expo-router";
+import { router, useNavigation } from "expo-router";
 import { useLayoutEffect } from "react";
+import { IconButton } from "@/components/IconButton";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react-native";
 
 type ChangelogEntry = {
   key: string;
@@ -55,8 +57,20 @@ export default function ChangelogScreen() {
       title: t("drawer.itemRecentChanges"),
       headerLargeTitle: true,
       headerTitleAlign: "center",
+      headerLeft: () =>
+        isRTL ? (
+          <></>
+        ) : (
+          <IconButton icon={<ArrowLeftIcon />} onPress={() => router.back()} />
+        ),
+      headerRight: () =>
+        isRTL ? (
+          <IconButton icon={<ArrowRightIcon />} onPress={() => router.back()} />
+        ) : (
+          <></>
+        ),
     });
-  }, [navigation, t]);
+  }, [navigation, t, isRTL]);
 
   return (
     <ScrollView

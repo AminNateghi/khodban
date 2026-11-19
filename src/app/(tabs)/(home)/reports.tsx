@@ -13,6 +13,8 @@ import ReportFuel from "@/components/forms/ReportFuel";
 import ReportServices from "@/components/forms/ReportServices";
 import ReportExpense from "@/components/forms/ReportExpense";
 import ReportDistance from "@/components/forms/ReportDistance";
+import { IconButton } from "@/components/IconButton";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react-native";
 
 type ReportType = "general" | "fuel" | "services" | "expense" | "distance";
 
@@ -40,8 +42,20 @@ export default function ReportsScreen() {
       title: t("reports.title"),
       headerLargeTitle: true,
       headerTitleAlign: "center",
+      headerLeft: () =>
+        isRTL ? (
+          <></>
+        ) : (
+          <IconButton icon={<ArrowLeftIcon />} onPress={() => router.back()} />
+        ),
+      headerRight: () =>
+        isRTL ? (
+          <IconButton icon={<ArrowRightIcon />} onPress={() => router.back()} />
+        ) : (
+          <></>
+        ),
     });
-  }, [navigation, t]);
+  }, [navigation, t, isRTL]);
 
   useEffect(() => {
     if (profile) {

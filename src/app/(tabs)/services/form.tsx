@@ -39,6 +39,8 @@ import {
   useGetReminder,
   useGetReminderForService,
 } from "@/repositories/reminder-repository";
+import { IconButton } from "@/components/IconButton";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react-native";
 
 const defaultValues = {
   type: ["EngineOil"],
@@ -90,8 +92,20 @@ export default function ServiceForm() {
       title: isEditMode ? t("services.updateTitle") : t("services.createTitle"),
       headerLargeTitle: true,
       headerTitleAlign: "center",
+      headerLeft: () =>
+        isRTL ? (
+          <></>
+        ) : (
+          <IconButton icon={<ArrowLeftIcon />} onPress={() => router.back()} />
+        ),
+      headerRight: () =>
+        isRTL ? (
+          <IconButton icon={<ArrowRightIcon />} onPress={() => router.back()} />
+        ) : (
+          <></>
+        ),
     });
-  }, [navigation, t, isEditMode]);
+  }, [navigation, t, isEditMode, isRTL]);
 
   useEffect(() => {
     if (!id) {

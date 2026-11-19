@@ -26,6 +26,8 @@ import dayjs from "dayjs";
 import { useActiveVehicle } from "@/repositories/active-vehicle";
 import { SoldVehicleNotice } from "@/components/SoldVehicleNotice";
 import { Toast } from "@/components/CustomToast";
+import { IconButton } from "@/components/IconButton";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react-native";
 
 const defaultValues = {
   date: dayjs().toISOString(),
@@ -69,8 +71,20 @@ export default function FuelForm() {
       headerLargeTitle: true,
       headerTitleAlign: "center",
       title: isEditMode ? t("fuel.updateTitle") : t("fuel.createTitle"),
+      headerLeft: () =>
+        isRTL ? (
+          <></>
+        ) : (
+          <IconButton icon={<ArrowLeftIcon />} onPress={() => router.back()} />
+        ),
+      headerRight: () =>
+        isRTL ? (
+          <IconButton icon={<ArrowRightIcon />} onPress={() => router.back()} />
+        ) : (
+          <></>
+        ),
     });
-  }, [navigation, t, isEditMode]);
+  }, [navigation, t, isEditMode, isRTL]);
 
   useEffect(() => {
     if (!id) {
