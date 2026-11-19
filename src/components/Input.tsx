@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: Theme.fontSize,
     flexDirection: "row",
-    alignItems: "baseline",
+    alignItems: "center",
     color: Theme.text,
     backgroundColor: Theme.surface,
   },
