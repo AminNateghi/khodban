@@ -14,6 +14,7 @@ import { FloatButton } from "@/components/FloatButton";
 import { useNavigationGuard } from "@/hooks/useNavigationGuard";
 import { useLayoutEffect } from "react";
 import { useActiveVehicle } from "@/repositories/active-vehicle";
+import { FuelTank, FuelType } from "@/types/interfaces";
 
 export default function FuelScreen() {
   const { t, isRTL, currencySymbol, distanceUnit, fuelUnit } = useTranslation();
@@ -37,6 +38,23 @@ export default function FuelScreen() {
       headerTitleAlign: "center",
     });
   });
+
+  const fuelLabel = (fuelTank: FuelTank) => {
+    let result = t("fuelUnit.faLiters");
+    const selectedFuelType =
+      fuelTank === "Second"
+        ? (activeVehicle?.secondFuelType ?? activeVehicle?.fuelType)
+        : activeVehicle?.fuelType;
+
+    if (selectedFuelType === "CNG/LPG") result = t("fuelUnit.faKilogram");
+
+    if (selectedFuelType === "Electric" || selectedFuelType === "Hybrid")
+      result = t("fuelUnit.faKilowatt");
+
+    if (selectedFuelType === "Other") result = t("fuel.unit");
+
+    return result;
+  };
 
   return (
     <View style={[styles.wrapper, isRTL && { direction: "rtl" }]}>
@@ -71,7 +89,7 @@ export default function FuelScreen() {
           return (
             <RecordCard
               id={fuel.id}
-              title={`${numberFormat(fuel.liters, { isRTL })} ${fuelUnit}`}
+              title={`${numberFormat(fuel.liters, { isRTL })} ${fuelLabel(fuel.fuelTank)}`}
               date={fuel.date}
               amount={fuel.totalCost}
               help={currencySymbol}

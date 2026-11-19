@@ -24,7 +24,7 @@ import {
   currencySymbolOptions,
   distanceUnitOptions,
   type FuelType,
-  type VehicleDto,
+  type VehicleInsert,
   type VehicleType,
   fuelUnitOptions,
   vehicleFuelTypeOptions,
@@ -54,7 +54,9 @@ const defaultValues: VehicleFormData = {
   soldOdometer: undefined,
   type: undefined,
   fuelType: undefined,
+  secondFuelType: undefined,
   capacity: undefined,
+  secondCapacity: undefined,
   distanceUnit: DEFAULT_DISTANCE_UNIT,
   fuelUnit: DEFAULT_FUEL_UNIT,
   currencySymbol: DEFAULT_CURRENCY_SYMBOL,
@@ -129,6 +131,8 @@ export default function VehicleFormScreen() {
       capacity: data.capacity?.toString() ?? "",
       customName: data.customName,
       fuelType: data.fuelType ?? undefined,
+      secondFuelType: data.secondFuelType ?? undefined,
+      secondCapacity: data.secondCapacity?.toString() ?? "",
       makeModel: data.makeModel ?? "",
       purchaseDate: data.purchaseDate
         ? new Date(data.purchaseDate).toISOString()
@@ -159,7 +163,7 @@ export default function VehicleFormScreen() {
   };
 
   const handleSave = (formData: VehicleFormData) => {
-    const vehicle: Omit<VehicleDto, "id"> = {
+    const vehicle: VehicleInsert = {
       capacity: optionalNumber(String(formData.capacity)),
       customName: formData.customName.trim(),
       currencySymbol: formData.currencySymbol,
@@ -181,6 +185,10 @@ export default function VehicleFormScreen() {
       soldOdometer: formData.sold
         ? optionalNumber(String(formData.soldOdometer))
         : null,
+      secondCapacity: optionalNumber(String(formData.secondCapacity)),
+      secondFuelType: formData.secondFuelType
+        ? (formData.secondFuelType as FuelType)
+        : null,
       type: (formData.type as VehicleType) ?? null,
       year: optionalNumber(String(formData.year)),
     };
@@ -198,6 +206,7 @@ export default function VehicleFormScreen() {
   };
 
   const fuelType = watch("fuelType") as FuelType | undefined;
+  const secondFuelType = watch("secondFuelType") as FuelType | undefined;
   const isSold = watch("sold");
   const currencySymbol = tString(`currencySymbol.${watch("currencySymbol")}`);
 
@@ -405,6 +414,47 @@ export default function VehicleFormScreen() {
           )}
         />
       </View>
+
+      <Card title={t("vehicles.secondFuelSource")} style={{ marginBottom: 15 }}>
+        <View style={ReportStyles.row}>
+          <Controller
+            control={control}
+            name="secondFuelType"
+            render={({ field: { value, onChange } }) => (
+              <View style={{ flex: 1 }}>
+                <SelectPicker
+                  label={t("vehicles.fuelType")}
+                  value={value?.toString() ?? ""}
+                  options={vehicleFuelTypeOptions(t)}
+                  onValueChange={onChange}
+                />
+              </View>
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="secondCapacity"
+            render={({ field: { value, onChange } }) => (
+              <View style={{ flex: 1 }}>
+                <Input
+                  label={
+                    secondFuelType === "Electric"
+                      ? t("vehicles.batteryCapacity")
+                      : secondFuelType === "CNG/LPG"
+                        ? t("vehicles.cngCapacity")
+                        : t("vehicles.fuelCapacity")
+                  }
+                  value={value?.toString() ?? ""}
+                  onChangeText={onChange}
+                  keyboardType="decimal-pad"
+                  style={{ direction: "ltr" }}
+                />
+              </View>
+            )}
+          />
+        </View>
+      </Card>
 
       <Card title={t("vehicles.settings")}>
         <Controller

@@ -29,6 +29,7 @@ export type ReminderSettingsDto = Pick<
   | "note"
 >;
 export type VehicleDto = typeof vehiclesRecords.$inferSelect;
+export type VehicleInsert = typeof vehiclesRecords.$inferInsert;
 
 export type ServiceType =
   | "Other"
@@ -105,6 +106,7 @@ export type ExpenseType =
 export type ReminderDependent = "Service" | "Expense";
 export type ReminderMode = "OneTime" | "Recurring";
 export type ReminderTriggerType = "Odometer" | "Date" | "Either";
+export type FuelTank = "First" | "Second";
 export type FuelType =
   | "Gasoline"
   | "Diesel"

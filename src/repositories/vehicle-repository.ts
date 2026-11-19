@@ -9,7 +9,11 @@ import {
   servicesRecords,
   vehiclesRecords,
 } from "@/db/schema";
-import type { LanguageType, VehicleDto } from "@/types/interfaces";
+import type {
+  LanguageType,
+  VehicleDto,
+  VehicleInsert,
+} from "@/types/interfaces";
 import { getTranslation } from "@/languages/translation";
 import { queryClient } from "@/utils/query-client";
 import { activeVehicleQueryKey } from "./active-vehicle";
@@ -88,7 +92,7 @@ export function useVehicles() {
 
 export function useCreateVehicle() {
   return useMutation({
-    mutationFn: async (values: Omit<VehicleDto, "id">) => {
+    mutationFn: async (values: VehicleInsert) => {
       const customName = values.customName.trim();
       if (!customName) {
         throw new Error("Custom name is required");
@@ -135,7 +139,7 @@ export function useCreateVehicle() {
 
 export function useUpdateVehicle(id: number) {
   return useMutation({
-    mutationFn: async (values: Partial<Omit<VehicleDto, "id">>) => {
+    mutationFn: async (values: Partial<Omit<VehicleInsert, "id">>) => {
       const previousVehicle = await db.query.vehiclesRecords.findFirst({
         where: eq(vehiclesRecords.id, id),
       });

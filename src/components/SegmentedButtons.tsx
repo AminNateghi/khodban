@@ -87,7 +87,6 @@ export const SegmentedButtons: React.FC<SegmentedButtonsProps> = (props) => {
               <Text
                 style={[
                   styles.text,
-                  isSelected && styles.textActive,
                   props.size === "small" && styles.textSmall,
                   isSelected && styles.buttonActive,
                 ]}
@@ -148,16 +147,13 @@ const styles = StyleSheet.create({
     borderLeftWidth: 0,
   },
   buttonActive: {
-    backgroundColor: Theme.primary,
     color: Theme.surface,
+    backgroundColor: Theme.primary,
   },
   text: {
     fontSize: Theme.fontSize,
   },
   textSmall: {
     fontSize: 14,
-  },
-  textActive: {
-    color: Theme.primary,
   },
 });

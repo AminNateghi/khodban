@@ -10,6 +10,7 @@ export const fuelSchema = (t: (key: TranslationKey) => string) =>
     liters: z.coerce.number(t("common.required")).positive(),
     pricePerLiter: z.coerce.number(t("common.required")).positive(),
     totalCost: z.coerce.number(t("common.required")).positive(),
+    fuelTank: z.enum(["First", "Second"]).default("First"),
     fullTank: z.boolean().optional().default(false),
     station: z.string().nullable().optional(),
     note: z.string().nullable().optional(),

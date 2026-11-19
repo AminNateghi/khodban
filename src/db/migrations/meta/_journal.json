@@ -92,6 +92,20 @@
       "when": 1795100000000,
       "tag": "0012_vehicle_settings",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "6",
+      "when": 1795116228628,
+      "tag": "0013_second_fuel_source",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "6",
+      "when": 1795117087552,
+      "tag": "0014_fuel_tank_selection",
+      "breakpoints": true
     }
   ]
 }

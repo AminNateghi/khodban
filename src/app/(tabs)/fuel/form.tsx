@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { GlobalStyles } from "@/constants";
 import { useTranslation } from "@/languages/useTranslation";
 import { Input } from "@/components/Input";
+import { SegmentedButtons } from "@/components/SegmentedButtons";
 import { type FuelFormData, fuelSchema } from "@/types/fuel-schema";
 import {
   useCreateFuel,
@@ -30,6 +31,7 @@ import dayjs from "dayjs";
 
 const defaultValues = {
   date: dayjs().toISOString(),
+  fuelTank: "First" as const,
   fullTank: true,
   liters: undefined,
   odometer: undefined,
@@ -96,6 +98,7 @@ export default function FuelForm() {
       note: data.note,
       odometer: data.odometer,
       fullTank: data.fullTank,
+      fuelTank: data.fuelTank ?? "First",
       liters: data.liters,
       pricePerLiter: data.pricePerLiter,
       station: data.station,
@@ -114,6 +117,7 @@ export default function FuelForm() {
       note: data.note,
       odometer: data.odometer,
       fullTank: data.fullTank,
+      fuelTank: data.fuelTank ?? "First",
       liters: data.liters,
       pricePerLiter: data.pricePerLiter,
       station: data.station,
@@ -128,6 +132,35 @@ export default function FuelForm() {
     "pricePerLiter",
     "totalCost",
   ]);
+  const fuelTank = watch("fuelTank");
+  const selectedFuelType =
+    fuelTank === "Second"
+      ? (activeVehicle?.secondFuelType ?? activeVehicle?.fuelType)
+      : activeVehicle?.fuelType;
+  const fuelLabels =
+    selectedFuelType === "CNG/LPG"
+      ? {
+          quantity: t("fuel.quantityKilograms"),
+          price: t("fuel.pricePerKilogram"),
+          helpLabel: t("fuelUnit.faKilogram"),
+        }
+      : selectedFuelType === "Electric" || selectedFuelType === "Hybrid"
+        ? {
+            quantity: t("fuel.quantityWatts"),
+            price: t("fuel.pricePerWatt"),
+            helpLabel: t("fuelUnit.faKilowatt"),
+          }
+        : selectedFuelType === "Other"
+          ? {
+              quantity: t("fuel.quantityUnits"),
+              price: t("fuel.pricePerUnit"),
+              helpLabel: "",
+            }
+          : {
+              quantity: t("fuel.quantityLiters"),
+              price: t("fuel.pricePerLiter"),
+              helpLabel: t("fuelUnit.faLiters"),
+            };
 
   const [lastEdited, setLastEdited] = useState<FuelAmountField | null>(null);
 
@@ -239,6 +272,7 @@ export default function FuelForm() {
       odometer: formData.odometer,
       note: formData.note ?? null,
       fullTank: formData.fullTank,
+      fuelTank: formData.fuelTank,
       liters: formData.liters,
       pricePerLiter: formData.pricePerLiter,
       totalCost: Number(formData.totalCost),
@@ -300,13 +334,35 @@ export default function FuelForm() {
         )}
       />
 
+      {activeVehicle?.secondFuelType && (
+        <Controller
+          control={control}
+          name="fuelTank"
+          render={({ field: { value, onChange } }) => (
+            <SegmentedButtons
+              label={t("fuel.tank")}
+              value={value ?? "First"}
+              buttons={[
+                { label: t("fuel.firstTank"), value: "First" },
+                { label: t("fuel.secondTank"), value: "Second" },
+              ]}
+              onValueChange={(tank) => {
+                if (tank === "First" || tank === "Second") {
+                  onChange(tank);
+                }
+              }}
+            />
+          )}
+        />
+      )}
+
       <View style={{ flexDirection: "row", gap: 10 }}>
         <Controller
           control={control}
           name="liters"
           render={({ field: { value, onChange, onBlur } }) => (
             <Input
-              label={t("fuel.liters")}
+              label={fuelLabels.quantity}
               value={value?.toString() ?? ""}
               onBlur={onBlur}
               onChangeText={(value) => {
@@ -316,7 +372,7 @@ export default function FuelForm() {
               keyboardType="decimal-pad"
               placeholder={t("fuel.litersPlaceholder")}
               style={{ direction: "ltr", flex: 1 }}
-              startElement={<Text>{fuelUnit}</Text>}
+              startElement={<Text>{fuelLabels.helpLabel}</Text>}
               error={errors?.liters?.message}
             />
           )}
@@ -327,7 +383,7 @@ export default function FuelForm() {
           name="pricePerLiter"
           render={({ field: { value, onChange, onBlur } }) => (
             <Input
-              label={t("fuel.price")}
+              label={fuelLabels.price}
               value={value?.toString() ?? ""}
               onBlur={onBlur}
               onChangeText={(value) => {

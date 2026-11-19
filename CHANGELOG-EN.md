@@ -4,6 +4,7 @@
 - Add Total Cost Input in Fuel Form
 - Move Settings Fields to Vehicle Form
 - Add Chart to Dashboard
+- Add Second Tank to Vehicle
 
 # v1.8.0
 
