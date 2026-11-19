@@ -89,6 +89,7 @@ export const SegmentedButtons: React.FC<SegmentedButtonsProps> = (props) => {
                   styles.text,
                   isSelected && styles.textActive,
                   props.size === "small" && styles.textSmall,
+                  isSelected && styles.buttonActive,
                 ]}
               >
                 {button.label}
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 10,
     paddingHorizontal: 12,
-    borderWidth: 1,
+    borderWidth: Theme.borderWidth,
     borderColor: Theme.border,
     backgroundColor: "transparent",
     alignItems: "center",
@@ -133,6 +134,7 @@ const styles = StyleSheet.create({
   buttonSmall: {
     paddingVertical: 5,
     paddingHorizontal: 8,
+    borderWidth: 1,
   },
   firstButton: {
     borderTopLeftRadius: 12,
@@ -146,8 +148,8 @@ const styles = StyleSheet.create({
     borderLeftWidth: 0,
   },
   buttonActive: {
-    backgroundColor: Theme.primary + 35,
-    borderColor: Theme.primary + 35,
+    backgroundColor: Theme.primary,
+    color: Theme.surface,
   },
   text: {
     fontSize: Theme.fontSize,

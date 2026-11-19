@@ -1,22 +1,47 @@
 import { StyleSheet, type TextInputProps, View } from "react-native";
 import { Text, TextInput } from "@/components/Text";
 import { Theme } from "@/constants";
+import { useState, type ReactNode } from "react";
 
 interface InputProps extends TextInputProps {
   label: string;
   error?: string;
   help?: string;
+  startElement?: ReactNode;
+  endElement?: ReactNode;
 }
 
-export function Input({ label, error, help, style, ...props }: InputProps) {
+export function Input({
+  label,
+  error,
+  help,
+  startElement,
+  endElement,
+  style,
+  ...props
+}: InputProps) {
+  const [pressed, setPressed] = useState<boolean>(false);
+
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
-      <TextInput
-        style={[styles.input, error && styles.inputError, style]}
-        placeholderTextColor={Theme.textMuted}
-        {...props}
-      />
+      <View
+        style={[
+          styles.selector,
+          pressed && styles.selectorPressed,
+          error && styles.borderError,
+        ]}
+      >
+        <View style={styles.element}>{startElement}</View>
+        <TextInput
+          style={[styles.input, style]}
+          placeholderTextColor={Theme.textMuted}
+          {...props}
+          onFocus={() => setPressed(true)}
+          onEndEditing={() => setPressed(false)}
+        />
+        <View style={styles.element}>{endElement}</View>
+      </View>
       {help && <Text style={styles.help}>{help}</Text>}
       {error && <Text style={styles.error}>{error}</Text>}
     </View>
@@ -33,17 +58,29 @@ const styles = StyleSheet.create({
     color: Theme.text,
     marginBottom: 8,
   },
-  input: {
-    height: Theme.height,
-    borderWidth: 1,
+  selector: {
+    backgroundColor: Theme.surface,
+    flexDirection: "row",
+    borderWidth: Theme.borderWidth,
     borderColor: Theme.border,
     borderRadius: Theme.borderRadius,
-    paddingHorizontal: 16,
+    alignItems: "center",
+  },
+  selectorPressed: {
+    borderColor: Theme.primary,
+  },
+  element: {
+    paddingHorizontal: 10,
+  },
+  input: {
+    flex: 1,
     fontSize: Theme.fontSize,
+    flexDirection: "row",
+    alignItems: "baseline",
     color: Theme.text,
     backgroundColor: Theme.surface,
   },
-  inputError: {
+  borderError: {
     borderColor: Theme.danger,
   },
   error: {
