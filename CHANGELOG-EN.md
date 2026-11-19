@@ -1,6 +1,8 @@
-# v1.9.0
+# v2.0.0
 
+- Rename App from Yadli to Khodban
 - Add Total Cost Input in Fuel Form
+- Move Settings Fields to Vehicle Form
 
 # v1.8.0
 

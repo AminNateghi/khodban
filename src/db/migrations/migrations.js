@@ -13,6 +13,7 @@ import m0008 from './0008_multiple_vehicles.sql';
 import m0009 from './0009_serious_groot.sql';
 import m0010 from './0010_record_linked_reminders.sql';
 import m0011 from './0011_abandoned_justice.sql';
+import m0012 from './0012_vehicle_settings.sql';
 
   export default {
     journal,
@@ -28,7 +29,8 @@ m0007,
 m0008,
 m0009,
 m0010,
-m0011
+m0011,
+m0012
     }
   }
   

@@ -3,10 +3,17 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import { View } from "react-native";
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import { Button } from "@/components/Button";
+import { Card } from "@/components/Card";
 import { DatePicker } from "@/components/DatePicker";
 import { Input } from "@/components/Input";
 import { SelectPicker } from "@/components/SelectPicker";
-import { GlobalStyles, ReportStyles } from "@/constants";
+import {
+  DEFAULT_CURRENCY_SYMBOL,
+  DEFAULT_DISTANCE_UNIT,
+  DEFAULT_FUEL_UNIT,
+  GlobalStyles,
+  ReportStyles,
+} from "@/constants";
 import { useTranslation } from "@/languages/useTranslation";
 import {
   useCreateVehicle,
@@ -14,11 +21,14 @@ import {
   useUpdateVehicle,
 } from "@/repositories/vehicle-repository";
 import {
-  vehicleFuelTypeOptions,
-  vehicleTypeOptions,
+  currencySymbolOptions,
+  distanceUnitOptions,
   type FuelType,
   type VehicleDto,
   type VehicleType,
+  fuelUnitOptions,
+  vehicleFuelTypeOptions,
+  vehicleTypeOptions,
 } from "@/types/interfaces";
 import { type VehicleFormData, vehicleSchema } from "@/types/vehicle-schema";
 import { Controller, useForm } from "react-hook-form";
@@ -44,6 +54,9 @@ const defaultValues: VehicleFormData = {
   type: undefined,
   fuelType: undefined,
   capacity: undefined,
+  distanceUnit: DEFAULT_DISTANCE_UNIT,
+  fuelUnit: DEFAULT_FUEL_UNIT,
+  currencySymbol: DEFAULT_CURRENCY_SYMBOL,
 };
 
 function optionalNumber(value: string): number | null {
@@ -56,7 +69,7 @@ export default function VehicleFormScreen() {
   const params = useLocalSearchParams<{ id: string }>();
   const [id] = useState<number>(Number(params.id));
   const navigation = useNavigation();
-  const { t, isRTL, currencySymbol, distanceUnit, fuelUnit } = useTranslation();
+  const { t, isRTL, tString } = useTranslation();
   const isEditMode = !!id;
 
   const { mutate: updateVehicle, isPending: isPendingUpdate } =
@@ -127,6 +140,9 @@ export default function VehicleFormScreen() {
       soldOdometer: data.soldOdometer?.toString() ?? "",
       type: data.type ?? undefined,
       year: data.year?.toString() ?? "",
+      distanceUnit: data.distanceUnit ?? DEFAULT_DISTANCE_UNIT,
+      fuelUnit: data.fuelUnit ?? DEFAULT_FUEL_UNIT,
+      currencySymbol: data.currencySymbol ?? DEFAULT_CURRENCY_SYMBOL,
     });
   }, [data, id, reset]);
 
@@ -143,7 +159,10 @@ export default function VehicleFormScreen() {
     const vehicle: Omit<VehicleDto, "id"> = {
       capacity: optionalNumber(String(formData.capacity)),
       customName: formData.customName.trim(),
+      currencySymbol: formData.currencySymbol,
+      distanceUnit: formData.distanceUnit,
       fuelType: formData.fuelType as FuelType,
+      fuelUnit: formData.fuelUnit,
       makeModel: formData.makeModel?.trim() ?? null,
       purchaseDate: formData.purchaseDate
         ? new Date(formData.purchaseDate)
@@ -177,6 +196,7 @@ export default function VehicleFormScreen() {
 
   const fuelType = watch("fuelType") as FuelType | undefined;
   const isSold = watch("sold");
+  const currencySymbol = tString(`currencySymbol.${watch("currencySymbol")}`);
 
   return (
     <KeyboardAwareScrollView
@@ -380,6 +400,50 @@ export default function VehicleFormScreen() {
           )}
         />
       </View>
+
+      <Card title={t("vehicles.settings")}>
+        <Controller
+          control={control}
+          name="distanceUnit"
+          render={({ field: { value, onChange } }) => (
+            <SelectPicker
+              label={t("settings.distanceUnit")}
+              value={value}
+              options={distanceUnitOptions(t)}
+              onValueChange={onChange}
+              error={errors.distanceUnit?.message}
+            />
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="fuelUnit"
+          render={({ field: { value, onChange } }) => (
+            <SelectPicker
+              label={t("settings.fuelUnit")}
+              value={value}
+              options={fuelUnitOptions(t)}
+              onValueChange={onChange}
+              error={errors.fuelUnit?.message}
+            />
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="currencySymbol"
+          render={({ field: { value, onChange } }) => (
+            <SelectPicker
+              label={t("settings.currencySymbol")}
+              value={value}
+              options={currencySymbolOptions(t)}
+              onValueChange={onChange}
+              error={errors.currencySymbol?.message}
+            />
+          )}
+        />
+      </Card>
 
       <View style={GlobalStyles.buttonColumn}>
         <Button

@@ -27,9 +27,6 @@ export const profileRecords = sqliteTable("profile", {
   fullName: text("full_name").default("-"),
   activeVehicleId: integer("active_vehicle_id").notNull().default(1),
   language: text("language").$type<LanguageType>().default("fa"),
-  distanceUnit: text("distance_unit").default(DEFAULT_DISTANCE_UNIT),
-  fuelUnit: text("fuel_unit").default(DEFAULT_FUEL_UNIT),
-  currencySymbol: text("currency_symbol").default(DEFAULT_CURRENCY_SYMBOL),
   onboarding: integer("onboarding", { mode: "boolean" })
     .notNull()
     .default(false),
@@ -46,6 +43,9 @@ export const vehiclesRecords = sqliteTable("vehicles", {
   type: text("type").$type<VehicleType>(),
   fuelType: text("fuel_type").$type<FuelType>().notNull().default("Gasoline"),
   capacity: real("capacity"),
+  distanceUnit: text("distance_unit").default(DEFAULT_DISTANCE_UNIT),
+  fuelUnit: text("fuel_unit").default(DEFAULT_FUEL_UNIT),
+  currencySymbol: text("currency_symbol").default(DEFAULT_CURRENCY_SYMBOL),
   sold: integer("sold", { mode: "boolean" }).notNull().default(false),
   soldDate: integer("sold_date", { mode: "timestamp" }),
   soldPrice: real("sold_price"),

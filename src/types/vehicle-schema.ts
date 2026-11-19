@@ -23,6 +23,9 @@ export const vehicleSchema = (t: (key: TranslationKey) => string) =>
       fuelType: z.string().optional(),
       type: z.string().optional(),
       capacity: z.coerce.number().optional(),
+      distanceUnit: z.string().min(1, { error: t("common.required") }),
+      fuelUnit: z.string().min(1, { error: t("common.required") }),
+      currencySymbol: z.string().min(1, { error: t("common.required") }),
     })
     .superRefine((vehicle, context) => {
       if (!vehicle.sold) return;

@@ -4,7 +4,6 @@ import {
   CarIcon,
   HardDriveIcon,
   HistoryIcon,
-  SettingsIcon,
   XIcon,
 } from "lucide-react-native";
 import { router } from "expo-router";
@@ -40,11 +39,6 @@ export default function AppDrawer({ visible, onClose }: Props) {
   const handleAbout = () => {
     onClose();
     router.navigate("/about");
-  };
-
-  const handleSettings = () => {
-    onClose();
-    router.navigate("/settings");
   };
 
   return (
@@ -91,12 +85,6 @@ export default function AppDrawer({ visible, onClose }: Props) {
               onPress={handleVehicles}
             />
 
-            <MenuItem
-              icon={<SettingsIcon size={21} color={Theme.gray} />}
-              title={t("drawer.itemSettings")}
-              description={t("drawer.subitemSettings")}
-              onPress={handleSettings}
-            />
             <View style={GlobalStyles.separator} />
             <MenuItem
               icon={<BoxIcon size={21} color={Theme.success} />}
