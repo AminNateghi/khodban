@@ -75,7 +75,7 @@ function DialogHeader({
 const styles = StyleSheet.create({
   dialogOverlay: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.45)",
+    backgroundColor: Theme.overlay,
     justifyContent: "center",
     alignItems: "center",
     padding: 24,
@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   dialogTitle: {
-    fontSize: 20,
-    fontWeight: "700",
+    fontSize: Theme.fontSize,
+    fontWeight: "bold",
     color: Theme.text,
     flex: 1,
     marginRight: 12,

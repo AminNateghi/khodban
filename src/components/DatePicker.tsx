@@ -87,7 +87,7 @@ export function DatePicker({ label, value, error, onChange }: DatePickerProps) {
               <Button
                 title={t("common.ok")}
                 style={styles.button}
-                variant="subtle"
+                variant="solid"
                 color="blue"
                 onPress={() => {
                   onChange(draftDate.toISOString());
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   selector: {
     height: Theme.height,
-    borderWidth: 1,
+    borderWidth: Theme.borderWidth,
     borderColor: Theme.border,
     borderRadius: Theme.borderRadius,
     paddingHorizontal: 16,
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
 
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: Theme.overlay,
     justifyContent: "center",
     alignItems: "center",
     padding: 24,
@@ -154,6 +154,8 @@ const styles = StyleSheet.create({
     borderBottomColor: Theme.borderLight,
   },
   modalTitle: {
+    fontSize: Theme.fontSize,
+    fontWeight: "bold",
     color: Theme.text,
   },
   button: {

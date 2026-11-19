@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.7)",
+    backgroundColor: Theme.overlay,
   },
   modalView: {
     margin: 20,
@@ -79,8 +79,10 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   modalText: {
-    marginBottom: 25,
     fontSize: Theme.fontSize,
+    fontWeight: "bold",
+    color: Theme.text,
+    marginBottom: 25,
     textAlign: "center",
   },
   buttonContainer: {

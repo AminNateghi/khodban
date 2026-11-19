@@ -30,9 +30,12 @@ export const Theme = {
   red: "#dc2626",
   mulberry: "#8d0d49",
 
+  overlay: "rgba(0,0,0,0.7)",
+
   borderRadius: 12,
   height: 50,
   fontSize: 16,
+  borderWidth: 2,
 };
 
 export const Palette = {
