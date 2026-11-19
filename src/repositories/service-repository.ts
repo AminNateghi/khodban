@@ -361,14 +361,16 @@ export function useGetService(id: number | null) {
   const { data: vehicleId } = useActiveVehicleId();
   return useQuery({
     queryKey: [...serviceQueryKey.byId(id ?? 0), vehicleId],
-    queryFn: () => {
-      if (id === null) return undefined;
-      return db.query.servicesRecords.findFirst({
-        where: and(
-          eq(servicesRecords.id, id),
-          eq(servicesRecords.vehicleId, vehicleId ?? 1),
-        ),
-      });
+    queryFn: async () => {
+      if (id === null) return null;
+      return (
+        (await db.query.servicesRecords.findFirst({
+          where: and(
+            eq(servicesRecords.id, id),
+            eq(servicesRecords.vehicleId, vehicleId ?? 1),
+          ),
+        })) ?? null
+      );
     },
     enabled: !!id && vehicleId !== undefined,
   });

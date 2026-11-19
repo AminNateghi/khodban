@@ -3,6 +3,7 @@ import type { ExpoConfig } from "expo/config";
 const config: ExpoConfig = {
   name: "Khodban",
   slug: "khodban",
+  scheme: "xyz.nateghi.khodban",
   version: "2.0.0",
   orientation: "portrait",
   icon: "./assets/images/icon.png",

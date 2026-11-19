@@ -1,8 +1,8 @@
 import { router, Tabs, useSegments } from "expo-router";
 import {
   BanknoteIcon,
-  CarIcon,
   FuelIcon,
+  HistoryIcon,
   LayoutDashboardIcon,
   TimerIcon,
   WrenchIcon,
@@ -62,6 +62,22 @@ export default function TabLayout() {
           tabPress: (e) => {
             e.preventDefault();
             router.navigate("/(tabs)/(home)");
+          },
+        }}
+      />
+
+      <Tabs.Screen
+        name="timeline"
+        options={{
+          title: t("menus.timeline"),
+          tabBarIcon: ({ color, size }) => (
+            <HistoryIcon size={size} color={color} />
+          ),
+        }}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault();
+            router.navigate("/(tabs)/timeline");
           },
         }}
       />
@@ -127,16 +143,6 @@ export default function TabLayout() {
             e.preventDefault();
             router.navigate("/(tabs)/reminders");
           },
-        }}
-      />
-
-      <Tabs.Screen
-        name="vehicles"
-        options={{
-          title: t("menus.vehicles"),
-          tabBarIcon: ({ color, size }) => (
-            <CarIcon size={size} color={color} />
-          ),
         }}
       />
     </Tabs>

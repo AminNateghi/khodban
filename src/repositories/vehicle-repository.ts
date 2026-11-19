@@ -303,11 +303,13 @@ export function useDeleteVehicle() {
 export function useGetVehicle(id: number | null) {
   return useQuery({
     queryKey: [...vehicleQueryKey.byId(id ?? 0), id],
-    queryFn: () => {
-      if (id === null) return undefined;
-      return db.query.vehiclesRecords.findFirst({
-        where: eq(vehiclesRecords.id, id),
-      });
+    queryFn: async () => {
+      if (id === null) return null;
+      return (
+        (await db.query.vehiclesRecords.findFirst({
+          where: eq(vehiclesRecords.id, id),
+        })) ?? null
+      );
     },
     enabled: id !== null,
   });

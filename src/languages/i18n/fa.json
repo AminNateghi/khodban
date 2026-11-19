@@ -37,12 +37,17 @@
   },
   "menus": {
     "dashboard": "داشبورد",
+    "timeline": "خط زمانی",
     "fuel": "سوخت‌گیری",
     "services": "سرویس‌ها",
     "expenses": "هزینه‌ها",
     "reminders": "یادآوری‌ها",
     "settings": "تنظیمات",
     "vehicles": "خودروها"
+  },
+  "timeline": {
+    "emptyTitle": "موردی در خط زمانی نیست",
+    "emptyDescription": "سوخت‌گیری‌ها، سرویس‌ها و هزینه‌ها در اینجا نمایش داده می‌شوند"
   },
   "drawer": {
     "closeDrawer": "بستن منو",

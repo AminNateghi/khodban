@@ -91,14 +91,16 @@ export function useGetFuel(id: number | null) {
   const { data: vehicleId } = useActiveVehicleId();
   return useQuery({
     queryKey: [...fuelQueryKey.byId(id ?? 0), vehicleId],
-    queryFn: () => {
-      if (id === null) return undefined;
-      return db.query.fuelsRecords.findFirst({
-        where: and(
-          eq(fuelsRecords.id, id),
-          eq(fuelsRecords.vehicleId, vehicleId ?? 1),
-        ),
-      });
+    queryFn: async () => {
+      if (id === null) return null;
+      return (
+        (await db.query.fuelsRecords.findFirst({
+          where: and(
+            eq(fuelsRecords.id, id),
+            eq(fuelsRecords.vehicleId, vehicleId ?? 1),
+          ),
+        })) ?? null
+      );
     },
     enabled: !!id && vehicleId !== undefined,
   });

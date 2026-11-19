@@ -37,12 +37,17 @@
   },
   "menus": {
     "dashboard": "Dashboard",
+    "timeline": "Timeline",
     "fuel": "Fuel",
     "services": "Services",
     "expenses": "Expenses",
     "reminders": "Reminders",
     "settings": "Settings",
     "vehicles": "Vehicles"
+  },
+  "timeline": {
+    "emptyTitle": "No Timeline Entries",
+    "emptyDescription": "Refueling, services, and expenses will appear here"
   },
   "drawer": {
     "closeDrawer": "Close menu",

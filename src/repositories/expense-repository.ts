@@ -344,14 +344,16 @@ export function useGetExpense(id: number | null) {
   const { data: vehicleId } = useActiveVehicleId();
   return useQuery({
     queryKey: [...expenseQueryKey.byId(id ?? 0), vehicleId],
-    queryFn: () => {
-      if (id === null) return undefined;
-      return db.query.expensesRecords.findFirst({
-        where: and(
-          eq(expensesRecords.id, id),
-          eq(expensesRecords.vehicleId, vehicleId ?? 1),
-        ),
-      });
+    queryFn: async () => {
+      if (id === null) return null;
+      return (
+        (await db.query.expensesRecords.findFirst({
+          where: and(
+            eq(expensesRecords.id, id),
+            eq(expensesRecords.vehicleId, vehicleId ?? 1),
+          ),
+        })) ?? null
+      );
     },
     enabled: !!id && vehicleId !== undefined,
   });
