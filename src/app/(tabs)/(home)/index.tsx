@@ -20,15 +20,12 @@ import { useGetProfile } from "@/repositories/profile-repository";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { Button } from "@/components/Button";
 import { SelectVehicle } from "@/components/SelectVehicle";
-import { useUpdateCheck } from "@/contexts/UpdateCheckContext";
-import { CheckUpdate } from "@/components/CheckUpdate";
 import { IconButton } from "@/components/IconButton";
 import AppDrawer from "@/components/Drawer";
 
 export default function DashboardScreen() {
   const { t, isRTL, currencySymbol, distanceUnit, fuelUnit } = useTranslation();
   const { totalReminders, statistics } = useStatistics();
-  const { updateAvailable } = useUpdateCheck();
   const [drawerVisible, setDrawerVisible] = useState(false);
   const navigation = useNavigation();
 
@@ -45,7 +42,7 @@ export default function DashboardScreen() {
       headerLargeTitle: true,
       headerLeft: () =>
         isRTL ? (
-          updateAvailable && <CheckUpdate type="icon" />
+          <></>
         ) : (
           <IconButton icon={<MenuIcon />} onPress={() => handleShowDrawer()} />
         ),
@@ -53,10 +50,10 @@ export default function DashboardScreen() {
         isRTL ? (
           <IconButton icon={<MenuIcon />} onPress={() => handleShowDrawer()} />
         ) : (
-          updateAvailable && <CheckUpdate type="icon" />
+          <></>
         ),
     });
-  }, [navigation, t, isRTL, updateAvailable]);
+  }, [navigation, t, isRTL]);
 
   useEffect(() => {
     if (profile) {
