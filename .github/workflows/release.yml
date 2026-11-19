@@ -110,13 +110,13 @@ jobs:
           APK="android/app/build/outputs/apk/release/app-release.apk"
 
           test -s "$APK"
-          mv "$APK" "yadli_v${VERSION}.apk"
+          mv "$APK" "khodban_v${VERSION}.apk"
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: android-release-apk
-          path: yadli_v*.apk
+          path: khodban_v*.apk
           if-no-files-found: error
           retention-days: 7
 

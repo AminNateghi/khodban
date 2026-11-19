@@ -4,6 +4,10 @@
     "strict": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "types": [
+      "react",
+      "node"
+    ],
     "paths": {
       "@/*": [
         "./src/*"

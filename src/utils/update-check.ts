@@ -21,7 +21,7 @@ function compareVersions(a: string, b: string) {
 
 export async function fetchUpdateAvailability(): Promise<UpdateCheckResult> {
   const response = await fetch(
-    "https://api.github.com/repos/AminNateghi/yadli-react-native/releases/latest",
+    "https://api.github.com/repos/AminNateghi/khodban/releases/latest",
     {
       headers: {
         Accept: "application/vnd.github+json",

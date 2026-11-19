@@ -104,7 +104,7 @@ export default function DatabaseScreen() {
       const backup = await sqlite.serializeAsync();
       const file = new File(
         Paths.cache,
-        `yadli-backup-${new Date().toISOString().replace(/[:.]/g, "-")}.db`,
+        `khodban-backup-${new Date().toISOString().replace(/[:.]/g, "-")}.db`,
       );
       file.create({ overwrite: true });
       await file.write(backup);

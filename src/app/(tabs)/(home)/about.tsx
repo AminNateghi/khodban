@@ -38,9 +38,7 @@ export default function AboutScreen() {
     Linking.openURL("https://nateghi.xyz/");
   };
 
-  const handleSourceCode = () => {
-    Linking.openURL("https://github.com/AminNateghi/yadli-react-native");
-  };
+ 
 
   return (
     <ScrollView
@@ -52,7 +50,7 @@ export default function AboutScreen() {
         <Image
           width={26}
           height={26}
-          source={require("./../../../../assets/images/yadli-icon-transparency.png")}
+          source={require("./../../../../assets/images/icon-transparency.png")}
           style={styles.icon}
         />
       </View>
@@ -76,15 +74,7 @@ export default function AboutScreen() {
             </Text>
           </Pressable>
         </View>
-        <View style={styles.developerContent}>
-          <Text>{t("about.sourceOn")}</Text>
-          <Pressable onPress={handleSourceCode}>
-            <Text style={styles.link}>
-              {t("about.github")}
-              <ShareIcon color={Theme.primary} size={14} />
-            </Text>
-          </Pressable>
-        </View>
+        
       </Card>
     </ScrollView>
   );

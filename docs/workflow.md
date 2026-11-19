@@ -22,7 +22,7 @@ npx expo install --fix  # fix SDK-mismatched versions
    updated `migrations.js` + `meta/_journal.json`.
 3. The app applies them at boot via `useMigrations(db, migrations)`
    (`src/app/_layout.tsx:27`). Test on a fresh install AND on an
-   existing `yadli.db` (upgrade path).
+   existing `khodban.db` (upgrade path).
 4. Commit `schema.ts` + the whole `migrations/` folder together.
 5. Never hand-edit applied SQL; never delete `migrations.js` entries.
 

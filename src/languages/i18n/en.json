@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Yadli",
+    "name": "Khodban",
     "description": "Vehicle Maintenance Manager",
     "rtl": "false",
     "madeWithLove": "Made with ❤️ in Iran"
@@ -76,13 +76,13 @@
     "exportSuccess": "Database backup is ready to share.",
     "exportFailed": "Could not export the database backup.",
     "restoreTitle": "Restore backup",
-    "restoreDescription": "Choose a Yadli database backup file to restore.",
+    "restoreDescription": "Choose a app database backup file to restore.",
     "restore": "Restore backup",
     "restoreConfirmation": "Restoring this backup will replace all current data. Continue?",
     "restoreSuccess": "Database backup restored.",
     "restoreNotificationWarning": "Backup restored, but reminder notifications could not be fully updated.",
     "restoreFailed": "Could not restore the database backup.",
-    "invalidBackup": "This file is not a valid Yadli database backup.",
+    "invalidBackup": "This file is not a valid database backup.",
     "unsupported": "Database backup is only available on mobile devices."
   },
   "dashboard": {

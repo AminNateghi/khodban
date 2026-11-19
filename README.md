@@ -2,17 +2,17 @@
   <summary>English</summary>
 
 <p align="center">
-<img width="260" height="260" src="./assets/images/yadli-icon-transparency.png" />
+<img width="260" height="260" src="./assets/images/icon-transparency.png" />
 </p>
-<h1 align="center">Yadli - Offline Vehicle Maintenance Manager</h1>
+<h1 align="center">Khodban - Offline Vehicle Maintenance Manager</h1>
 
-[![Latest Release](https://img.shields.io/github/v/release/AminNateghi/yadli-react-native)](https://github.com/AminNateghi/yadli-react-native/releases/latest)
-[![Last Commit](https://img.shields.io/github/last-commit/AminNateghi/yadli-react-native)](https://github.com/AminNateghi/yadli-react-native/commits/main)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/AminNateghi/yadli-react-native/release.yml)
-![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/AminNateghi/yadli-react-native/latest/total)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/t/AminNateghi/yadli-react-native)
-[![Architecture diagram](https://img.shields.io/badge/Architecture-Diagram-bf81fd)](https://gitdiagram.com/aminnateghi/yadli-react-native?utm_source=readme&utm_medium=badge)
-![GitHub License](https://img.shields.io/github/license/AminNateghi/yadli-react-native)
+[![Latest Release](https://img.shields.io/github/v/release/AminNateghi/khodban)](https://github.com/AminNateghi/khodban/releases/latest)
+[![Last Commit](https://img.shields.io/github/last-commit/AminNateghi/khodban)](https://github.com/AminNateghi/khodban/commits/main)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/AminNateghi/khodban/release.yml)
+![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/AminNateghi/khodban/latest/total)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/AminNateghi/khodban)
+[![Architecture diagram](https://img.shields.io/badge/Architecture-Diagram-bf81fd)](https://gitdiagram.com/aminnateghi/khodban?utm_source=readme&utm_medium=badge)
+![GitHub License](https://img.shields.io/github/license/AminNateghi/khodban)
 ![ReactNativeExpo](https://img.shields.io/badge/-ReactNative_Expo-404040)&nbsp;
 ![TypeScript](https://img.shields.io/badge/-TypeScript-2f74c0)&nbsp;
 ![SQLite](https://img.shields.io/badge/-SQLite-3446eb)&nbsp;
@@ -23,7 +23,7 @@ No registration, no login, no backend. All data stays on-device in SQLite.
 
 Log refueling, periodic services, vehicle expenses, and set odometer/date
 
-<img alt='yadli banner' src='https://raw.githubusercontent.com/AminNateghi/yadli-react-native/refs/heads/main/assets/yadli-banner-en.png'/>
+<img alt='khodban banner' src='./assets/banner-en.png'/>
 
 ## Features
 
@@ -39,7 +39,7 @@ Log refueling, periodic services, vehicle expenses, and set odometer/date
 
 # Download
 
-<a href='https://github.com/AminNateghi/yadli-react-native/releases/latest'><img height=70 alt='Get it on GitHub' src='https://raw.githubusercontent.com/AminNateghi/yadli-react-native/refs/heads/main/assets/github.svg'/></a>
+<a href='https://github.com/AminNateghi/khodban/releases/latest'><img height=70 alt='Get it on GitHub' src='https://raw.githubusercontent.com/AminNateghi/khodban/refs/heads/main/assets/github.svg'/></a>
 
 ## Requirements
 
@@ -110,15 +110,15 @@ No auth, no network. `query-client.ts` is a bare `new QueryClient()`.
   <div dir="rtl">
 
 <p align="center">
-<img width="260" height="260" src="./assets/images/yadli-icon-transparency.png" />
+<img width="260" height="260" src="./assets/images/icon-transparency.png" />
 </p>
-<h1 align="center">یادلی - دستیار شخصی خودرو</h1>
+<h1 align="center">خودبان - دستیار شخصی خودرو</h1>
 
-«یادلی» یک دستیار شخصی خودرو است که امکان ثبت سوابق سوخت‌گیری، سرویس‌های دوره‌ای و انواع هزینه‌های متفرقه را می‌دهد، همچنین برنامه امکان یادآوری سرویس‌های دوره‌ای برای جلوگیری از هزینه‌های سنگین تعمیر خودرو، دارد. یادلی اپلیکیشن اندرویدی، کاملا رایگان، آفلاین و بدون نیاز به اینترنت و بدون نیاز به ثبت نام و حق اشتراک است. تمامی داده‌های خودروهای شما بر روی گوشی خود شما ذخیره می‌شود. فقط کافیست به صورت مرتب بعد از هر تعمیر خودرو یا سوخت‌گیری، کیلومتر پشت‌آمپر را در برنامه ثبت کنید تا محاسبات مربوط به سررسید تاریخ‌ها سرویس‌ها انجام شود.
+«خودبان» یک دستیار شخصی خودرو است که امکان ثبت سوابق سوخت‌گیری، سرویس‌های دوره‌ای و انواع هزینه‌های متفرقه را می‌دهد، همچنین برنامه امکان یادآوری سرویس‌های دوره‌ای برای جلوگیری از هزینه‌های سنگین تعمیر خودرو، دارد. خودبان اپلیکیشن اندرویدی، کاملا رایگان، آفلاین و بدون نیاز به اینترنت و بدون نیاز به ثبت نام و حق اشتراک است. تمامی داده‌های خودروهای شما بر روی گوشی خود شما ذخیره می‌شود. فقط کافیست به صورت مرتب بعد از هر تعمیر خودرو یا سوخت‌گیری، کیلومتر پشت‌آمپر را در برنامه ثبت کنید تا محاسبات مربوط به سررسید تاریخ‌ها سرویس‌ها انجام شود.
 
 همچنین در بخش گزارشات برنامه می‌توانید انواع اطلاعات از هزینه‌های انجام شده، میزان مصرف سوخت و... را مشاهده کنید.
 
-<img alt='yadli banner' src='https://raw.githubusercontent.com/AminNateghi/yadli-react-native/refs/heads/main/assets/yadli-banner-fa.png'/>
+<img alt='khodban banner' src='./assets/banner-fa.png'/>
 
 # امکانات
 
@@ -142,8 +142,8 @@ No auth, no network. `query-client.ts` is a bare `new QueryClient()`.
 
 # دانلود
 
-<a href='https://github.com/AminNateghi/yadli-react-native/releases/latest'><img height=70 alt='Get it on GitHub' src='./assets/github.svg'/></a>
-<a href='https://cafebazaar.ir/app/xyz.nateghi.yadli'><img height=70 alt='Get it on CafeBazaar' src='./assets/cafebazaar.png'/></a>
+<a href='https://github.com/AminNateghi/khodban/releases/latest'><img height=70 alt='Get it on GitHub' src='./assets/github.svg'/></a>
+<a href='https://cafebazaar.ir/app/xyz.nateghi.khodban'><img height=70 alt='Get it on CafeBazaar' src='./assets/cafebazaar.png'/></a>
 
   </div>
 </details>

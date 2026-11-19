@@ -9,7 +9,6 @@ import {
 } from "lucide-react-native";
 import { router } from "expo-router";
 import { useTranslation } from "@/languages/useTranslation";
-import { CheckUpdate } from "./CheckUpdate";
 import { Text } from "./Text";
 import { Theme, GlobalStyles } from "@/constants";
 import Language from "./Language";
@@ -105,7 +104,6 @@ export default function AppDrawer({ visible, onClose }: Props) {
               description={t("drawer.subitemAbout")}
               onPress={handleAbout}
             />
-            <CheckUpdate />
             <MenuItem
               icon={<HistoryIcon size={21} color={Theme.mulberry} />}
               title={t("drawer.itemRecentChanges")}

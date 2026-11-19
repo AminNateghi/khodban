@@ -31,7 +31,7 @@ screen; the dashboard and navigation drawer switch the active vehicle.
 
 ## 3. Data layer
 
-- Client: `src/db/index.ts` — `openDatabaseSync("yadli.db")` + `drizzle(sqlite, {schema})`
+- Client: `src/db/index.ts` — `openDatabaseSync("khodban.db")` + `drizzle(sqlite, {schema})`
 - Schema: `src/db/schema.ts` — `profile`, `vehicles`, `services`, `fuels`,
   `expenses`, and `reminders`. Log and reminder records are scoped to a
   vehicle; the active vehicle is stored in `profile`. Each reminder references
