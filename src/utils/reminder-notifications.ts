@@ -160,19 +160,21 @@ export async function syncReminderNotification(
   });
   const language = profile?.language ?? "fa";
 
-  if (Platform.OS === "android") {
-    await Notifications.setNotificationChannelAsync(REMINDER_CHANNEL_ID, {
-      name: getTranslation(language, "reminders.title"),
-      importance: Notifications.AndroidImportance.DEFAULT,
-    });
+  const permission = await Notifications.getPermissionsAsync();
+  const requested = permission.granted
+    ? permission
+    : await Notifications.requestPermissionsAsync();
+  if (!requested.granted) {
+    return false;
   }
 
-  const { status: existingStatus } = await Notifications.getPermissionsAsync();
-  const { status } =
-    existingStatus === "granted"
-      ? { status: existingStatus }
-      : await Notifications.requestPermissionsAsync();
-  if (status !== "granted") return false;
+  if (Platform.OS === "android") {
+    await Notifications.setNotificationChannelAsync(REMINDER_CHANNEL_ID, {
+      name: getTranslation(language, "reminders.overdue"),
+      importance: Notifications.AndroidImportance.DEFAULT,
+      vibrationPattern: [0, 200],
+    });
+  }
 
   const content = notificationContent(reminderWithSource, language);
 
@@ -185,6 +187,7 @@ export async function syncReminderNotification(
     trigger: {
       type: Notifications.SchedulableTriggerInputTypes.DATE,
       date: notificationDate,
+      channelId: REMINDER_CHANNEL_ID,
     },
   });
   return true;
