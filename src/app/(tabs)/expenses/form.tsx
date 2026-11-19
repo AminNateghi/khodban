@@ -40,6 +40,7 @@ import {
 } from "@/repositories/reminder-repository";
 import { IconButton } from "@/components/IconButton";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react-native";
+import { Text } from "@/components/Text";
 
 const defaultValues = {
   type: "Reimbursement",
@@ -56,7 +57,7 @@ export default function ExpenseForm() {
   const navigation = useNavigation();
   const isEditMode = !!id;
 
-  const { t, isRTL } = useTranslation();
+  const { t, isRTL, currencySymbol } = useTranslation();
   const { data: activeVehicle } = useActiveVehicle();
 
   const { statistics } = useStatistics();
@@ -287,6 +288,7 @@ export default function ExpenseForm() {
             keyboardType="decimal-pad"
             placeholder={t("expenses.amountPlaceholder")}
             style={{ direction: "ltr" }}
+            startElement={<Text>{currencySymbol}</Text>}
             error={errors?.amount?.message}
           />
         )}

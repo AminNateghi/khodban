@@ -41,6 +41,7 @@ import {
 } from "@/repositories/reminder-repository";
 import { IconButton } from "@/components/IconButton";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react-native";
+import { Text } from "@/components/Text";
 
 const defaultValues = {
   type: ["EngineOil"],
@@ -55,7 +56,7 @@ export default function ServiceForm() {
   const [id] = useState<number>(Number(params.id));
   const reminderId = Number(params.reminderId) || null;
   const navigation = useNavigation();
-  const { t, isRTL } = useTranslation();
+  const { t, isRTL, currencySymbol } = useTranslation();
   const { data: activeVehicle } = useActiveVehicle();
   const { statistics } = useStatistics();
   const isEditMode = !!id;
@@ -288,6 +289,7 @@ export default function ServiceForm() {
             keyboardType="decimal-pad"
             placeholder={t("services.costPlaceholder")}
             style={{ direction: "ltr" }}
+            startElement={<Text>{currencySymbol}</Text>}
             error={errors?.cost?.message}
           />
         )}

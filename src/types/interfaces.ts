@@ -126,12 +126,16 @@ export type FuelUnit =
   | "Gallons"
   | "gal"
   | "Kilowatt"
+  | "Kilogram"
+  | "Kg"
   | "GroupFa"
   | "faLiters"
   | "faL"
   | "faGallons"
   | "faGal"
-  | "faKilowatt";
+  | "faKilowatt"
+  | "faKilogram"
+  | "faKg";
 export type CurrencySymbol =
   | "GroupEn"
   | "DollarSign"
@@ -441,6 +445,8 @@ export function fuelUnitOptions(
     { value: "Gallons", label: t("fuelUnit.Gallons") },
     { value: "gal", label: t("fuelUnit.gal") },
     { value: "Kilowatt", label: t("fuelUnit.Kilowatt") },
+    { value: "Kilogram", label: t("fuelUnit.Kilogram") },
+    { value: "Kg", label: t("fuelUnit.Kg") },
     {
       value: "GroupFa",
       label: t("fuelUnit.GroupFa"),
@@ -451,6 +457,8 @@ export function fuelUnitOptions(
     { value: "faGallons", label: t("fuelUnit.faGallons") },
     { value: "faGal", label: t("fuelUnit.faGal") },
     { value: "faKilowatt", label: t("fuelUnit.faKilowatt") },
+    { value: "faKilogram", label: t("fuelUnit.faKilogram") },
+    { value: "faKg", label: t("fuelUnit.faKg") },
   ];
 }
 

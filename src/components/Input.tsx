@@ -51,6 +51,7 @@ export function Input({
 const styles = StyleSheet.create({
   container: {
     marginBottom: 16,
+    flex: 1,
   },
   label: {
     fontSize: 14,
@@ -59,12 +60,12 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   selector: {
-    backgroundColor: Theme.surface,
     flexDirection: "row",
     borderWidth: Theme.borderWidth,
     borderColor: Theme.border,
     borderRadius: Theme.borderRadius,
     alignItems: "center",
+    backgroundColor: Theme.surface,
   },
   selectorPressed: {
     borderColor: Theme.primary,

@@ -15,19 +15,18 @@ import type { FuelDto } from "@/types/interfaces";
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import { DatePicker } from "@/components/DatePicker";
 import { Text } from "@/components/Text";
-import { ValueWithHelp } from "@/components/ValueWithHelp";
 import { SwitchToggle } from "@/components/SwitchToggle";
 import { FuelDeletionModal } from "@/components/forms/FuelDeletionModal";
 import { Button } from "@/components/Button";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import { useStatistics } from "@/repositories/statistics";
 import { numberFormat } from "@/utils/number-format";
-import dayjs from "dayjs";
 import { useActiveVehicle } from "@/repositories/active-vehicle";
 import { SoldVehicleNotice } from "@/components/SoldVehicleNotice";
 import { Toast } from "@/components/CustomToast";
 import { IconButton } from "@/components/IconButton";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react-native";
+import dayjs from "dayjs";
 
 const defaultValues = {
   date: dayjs().toISOString(),
@@ -43,7 +42,7 @@ const defaultValues = {
 export default function FuelForm() {
   const params = useLocalSearchParams<{ id: string }>();
   const [id] = useState<number>(Number(params.id));
-  const { t, isRTL, currencySymbol } = useTranslation();
+  const { t, isRTL, currencySymbol, fuelUnit } = useTranslation();
   const { data: activeVehicle } = useActiveVehicle();
   const { statistics } = useStatistics();
   const navigation = useNavigation();
@@ -60,6 +59,7 @@ export default function FuelForm() {
     control,
     reset,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -87,11 +87,21 @@ export default function FuelForm() {
   }, [navigation, t, isEditMode, isRTL]);
 
   useEffect(() => {
-    if (!id) {
-      reset(defaultValues);
-      return;
-    }
-  }, [id, reset]);
+    if (!data || !id) return;
+
+    setLastEdited(null);
+
+    reset({
+      date: String(data.date),
+      note: data.note,
+      odometer: data.odometer,
+      fullTank: data.fullTank,
+      liters: data.liters,
+      pricePerLiter: data.pricePerLiter,
+      station: data.station,
+      totalCost: data.totalCost,
+    });
+  }, [data, id, reset]);
 
   useEffect(() => {
     if (!data || !id) {
@@ -111,7 +121,124 @@ export default function FuelForm() {
     });
   }, [data, id, reset]);
 
+  type FuelAmountField = "liters" | "pricePerLiter" | "totalCost";
+
+  const parseAmount = (value: unknown): number | undefined => {
+    if (typeof value === "number") {
+      return Number.isFinite(value) ? value : undefined;
+    }
+
+    if (typeof value !== "string" || value.trim() === "") {
+      return undefined;
+    }
+
+    const parsed = Number(value.trim().replace(",", "."));
+
+    return Number.isFinite(parsed) ? parsed : undefined;
+  };
+
+  const [liters, pricePerLiter, totalCost] = watch([
+    "liters",
+    "pricePerLiter",
+    "totalCost",
+  ]);
+
+  const [lastEdited, setLastEdited] = useState<FuelAmountField | null>(null);
+
+  useEffect(() => {
+    const parseAmount = (value: unknown): number | undefined => {
+      if (typeof value === "number") {
+        return Number.isFinite(value) ? value : undefined;
+      }
+
+      if (typeof value !== "string" || value.trim() === "") {
+        return undefined;
+      }
+
+      const parsed = Number(value.trim().replace(",", "."));
+
+      return Number.isFinite(parsed) ? parsed : undefined;
+    };
+
+    const roundAmount = (value: number, decimals: number) =>
+      Number(value.toFixed(decimals));
+
+    const l = parseAmount(liters);
+    const p = parseAmount(pricePerLiter);
+    const total = parseAmount(totalCost);
+
+    let fieldToUpdate: FuelAmountField | null = null;
+    let calculatedValue: number | undefined;
+    let currentValue: number | undefined;
+
+    // Liters + price → total cost
+    if (l !== undefined && p !== undefined && total === undefined) {
+      fieldToUpdate = "totalCost";
+      calculatedValue = roundAmount(l * p, 2);
+      currentValue = total;
+    }
+
+    // Liters + total → price per liter
+    else if (
+      l !== undefined &&
+      total !== undefined &&
+      p === undefined &&
+      l > 0
+    ) {
+      fieldToUpdate = "pricePerLiter";
+      calculatedValue = roundAmount(total / l, 2);
+      currentValue = p;
+    }
+
+    // Price + total → liters
+    else if (
+      p !== undefined &&
+      total !== undefined &&
+      l === undefined &&
+      p > 0
+    ) {
+      fieldToUpdate = "liters";
+      calculatedValue = roundAmount(total / p, 2);
+      currentValue = l;
+    }
+
+    // All three have values: synchronize based on the last edited field
+    else if (l !== undefined && p !== undefined && total !== undefined) {
+      if (lastEdited === "liters" || lastEdited === "pricePerLiter") {
+        fieldToUpdate = "totalCost";
+        calculatedValue = roundAmount(l * p, isRTL ? 0 : 2);
+        currentValue = total;
+      } else if (lastEdited === "totalCost" && p > 0) {
+        fieldToUpdate = "liters";
+        calculatedValue = roundAmount(total / p, 2);
+        currentValue = l;
+      }
+    }
+
+    if (fieldToUpdate === null || calculatedValue === undefined) {
+      return;
+    }
+
+    // Never overwrite the field currently being edited
+    if (fieldToUpdate === lastEdited) {
+      return;
+    }
+
+    if (
+      currentValue !== undefined &&
+      Math.abs(currentValue - calculatedValue) < 0.000001
+    ) {
+      return;
+    }
+
+    setValue(fieldToUpdate, calculatedValue, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+  }, [liters, pricePerLiter, totalCost, lastEdited, isRTL, setValue]);
+
   const handleResetForm = () => {
+    setLastEdited(null);
     reset(defaultValues);
   };
 
@@ -128,7 +255,7 @@ export default function FuelForm() {
       fullTank: formData.fullTank,
       liters: formData.liters,
       pricePerLiter: formData.pricePerLiter,
-      totalCost: Number(formData.liters) * Number(formData.pricePerLiter),
+      totalCost: Number(formData.totalCost),
       station: formData.station ?? null,
     };
 
@@ -141,11 +268,6 @@ export default function FuelForm() {
     if (id) updateService(fuel, callbacks);
     else createService(fuel, callbacks);
   };
-
-  const liters = watch("liters");
-  const pricePerLiter = watch("pricePerLiter");
-  const totalCost =
-    liters && pricePerLiter ? Number(liters) * Number(pricePerLiter) : 0;
 
   if (activeVehicle?.sold) {
     return <SoldVehicleNotice onClose={handleClose} />;
@@ -194,48 +316,73 @@ export default function FuelForm() {
         )}
       />
 
-      <Controller
-        control={control}
-        name="liters"
-        render={({ field: { value, onChange, onBlur } }) => (
-          <>
+      <View style={{ flexDirection: "row", gap: 10 }}>
+        <Controller
+          control={control}
+          name="liters"
+          render={({ field: { value, onChange, onBlur } }) => (
             <Input
               label={t("fuel.liters")}
               value={value?.toString() ?? ""}
               onBlur={onBlur}
-              onChangeText={onChange}
+              onChangeText={(value) => {
+                setLastEdited("liters");
+                onChange(value);
+              }}
               keyboardType="decimal-pad"
               placeholder={t("fuel.litersPlaceholder")}
-              style={{ direction: "ltr" }}
+              style={{ direction: "ltr", flex: 1 }}
+              startElement={<Text>{fuelUnit}</Text>}
               error={errors?.liters?.message}
             />
-          </>
-        )}
-      />
+          )}
+        />
 
+        <Controller
+          control={control}
+          name="pricePerLiter"
+          render={({ field: { value, onChange, onBlur } }) => (
+            <>
+              <Input
+                label={t("fuel.price")}
+                value={value?.toString() ?? ""}
+                onBlur={onBlur}
+                onChangeText={(value) => {
+                  setLastEdited("pricePerLiter");
+                  onChange(value);
+                }}
+                keyboardType="decimal-pad"
+                placeholder={t("fuel.pricePlaceholder")}
+                style={{ direction: "ltr", flex: 1 }}
+                startElement={<Text>{currencySymbol}</Text>}
+                error={errors?.pricePerLiter?.message}
+              />
+            </>
+          )}
+        />
+      </View>
       <Controller
         control={control}
-        name="pricePerLiter"
+        name="totalCost"
         render={({ field: { value, onChange, onBlur } }) => (
           <>
             <Input
-              label={t("fuel.price")}
+              label={t("fuel.totalCost")}
               value={value?.toString() ?? ""}
               onBlur={onBlur}
-              onChangeText={onChange}
+              onChangeText={(value) => {
+                setLastEdited("totalCost");
+                onChange(value);
+              }}
               keyboardType="decimal-pad"
-              placeholder={t("fuel.pricePlaceholder")}
+              placeholder={t("fuel.totalCostPlaceholder")}
               style={{ direction: "ltr" }}
-              error={errors?.pricePerLiter?.message}
+              startElement={<Text>{currencySymbol}</Text>}
+              error={errors?.totalCost?.message}
             />
           </>
         )}
       />
-
-      <View style={styles.totalRow}>
-        <Text style={styles.totalLabel}>{t("fuel.totalCost")}</Text>
-        <ValueWithHelp value={totalCost} help={currencySymbol} />
-      </View>
 
       <Controller
         control={control}
@@ -300,19 +447,3 @@ export default function FuelForm() {
     </KeyboardAwareScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  totalRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: Theme.surfaceAlt,
-    borderRadius: Theme.borderRadius,
-    padding: 16,
-    marginBottom: 16,
-  },
-  totalLabel: {
-    fontSize: 14,
-    color: Theme.textSecondary,
-  },
-});

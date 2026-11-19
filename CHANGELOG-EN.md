@@ -1,3 +1,7 @@
+# v1.9.0
+
+- Add Total Cost Input in Fuel Form
+
 # v1.8.0
 
 - Add Settings

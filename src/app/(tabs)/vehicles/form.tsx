@@ -28,6 +28,7 @@ import { SwitchToggle } from "@/components/SwitchToggle";
 import { Toast } from "@/components/CustomToast";
 import { IconButton } from "@/components/IconButton";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react-native";
+import { Text } from "@/components/Text";
 
 const defaultValues: VehicleFormData = {
   customName: "",
@@ -55,7 +56,7 @@ export default function VehicleFormScreen() {
   const params = useLocalSearchParams<{ id: string }>();
   const [id] = useState<number>(Number(params.id));
   const navigation = useNavigation();
-  const { t, isRTL } = useTranslation();
+  const { t, isRTL, currencySymbol, distanceUnit, fuelUnit } = useTranslation();
   const isEditMode = !!id;
 
   const { mutate: updateVehicle, isPending: isPendingUpdate } =
@@ -260,6 +261,7 @@ export default function VehicleFormScreen() {
               value={value?.toString() ?? ""}
               onChangeText={onChange}
               keyboardType="decimal-pad"
+              startElement={<Text>{currencySymbol}</Text>}
               style={{ direction: "ltr" }}
             />
           </View>
@@ -317,6 +319,7 @@ export default function VehicleFormScreen() {
                 onChangeText={onChange}
                 keyboardType="decimal-pad"
                 style={{ direction: "ltr" }}
+                startElement={<Text>{currencySymbol}</Text>}
                 error={errors.soldPrice?.message}
               />
             )}
