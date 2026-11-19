@@ -170,7 +170,7 @@ export default function ReminderForm() {
           </View>
         </>
       )}
-      <View style={{ height: 40 }} />
+      <View style={{ height: 160 }} />
     </KeyboardAwareScrollView>
   );
 }

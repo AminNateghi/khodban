@@ -22,6 +22,7 @@ import { Button } from "@/components/Button";
 import { SelectVehicle } from "@/components/SelectVehicle";
 import { IconButton } from "@/components/IconButton";
 import AppDrawer from "@/components/Drawer";
+import DonutChart from "@/components/DonutChart";
 
 export default function DashboardScreen() {
   const { t, isRTL, currencySymbol, distanceUnit, fuelUnit } = useTranslation();
@@ -88,6 +89,13 @@ export default function DashboardScreen() {
               </Pressable>
             )}
           </View>
+
+          <DonutChart
+            totalSpent={statistics.general.totalSpent}
+            totalExpenses={statistics.expenses.totalExpenses}
+            totalFuelCost={statistics.refueling.totalFuelCost}
+            totalServiceCost={statistics.services.totalServiceCost}
+          />
 
           <View style={styles.statsGrid}>
             <StatCard

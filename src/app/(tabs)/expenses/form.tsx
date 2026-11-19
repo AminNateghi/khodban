@@ -347,6 +347,8 @@ export default function ExpenseForm() {
           />
         )}
       </View>
+
+      <View style={{ height: 160 }} />
     </KeyboardAwareScrollView>
   );
 }

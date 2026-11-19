@@ -123,20 +123,6 @@ export default function FuelForm() {
 
   type FuelAmountField = "liters" | "pricePerLiter" | "totalCost";
 
-  const parseAmount = (value: unknown): number | undefined => {
-    if (typeof value === "number") {
-      return Number.isFinite(value) ? value : undefined;
-    }
-
-    if (typeof value !== "string" || value.trim() === "") {
-      return undefined;
-    }
-
-    const parsed = Number(value.trim().replace(",", "."));
-
-    return Number.isFinite(parsed) ? parsed : undefined;
-  };
-
   const [liters, pricePerLiter, totalCost] = watch([
     "liters",
     "pricePerLiter",
@@ -443,7 +429,7 @@ export default function FuelForm() {
         )}
       </View>
 
-      <View style={{ height: 40 }} />
+      <View style={{ height: 160 }} />
     </KeyboardAwareScrollView>
   );
 }
