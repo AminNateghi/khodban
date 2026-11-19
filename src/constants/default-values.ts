@@ -1,3 +1,3 @@
-export const DEFAULT_DISTANCE_UNIT = "ک.م";
-export const DEFAULT_CURRENCY_SYMBOL = "تومان";
-export const DEFAULT_FUEL_UNIT = "لیتر";
+export const DEFAULT_DISTANCE_UNIT = "faKm";
+export const DEFAULT_CURRENCY_SYMBOL = "faToman";
+export const DEFAULT_FUEL_UNIT = "faLiters";

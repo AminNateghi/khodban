@@ -15,6 +15,11 @@ import { expenseQueryKey } from "./expense-repository";
 import { fuelQueryKey } from "./fuel-repository";
 import { serviceQueryKey } from "./service-repository";
 import { removeAllReminderNotifications } from "@/utils/reminder-notifications";
+import {
+  DEFAULT_CURRENCY_SYMBOL,
+  DEFAULT_DISTANCE_UNIT,
+  DEFAULT_FUEL_UNIT,
+} from "@/constants";
 
 export const profileQueryKey = {
   profile: ["profile"],
@@ -100,9 +105,9 @@ export function useGetProfile() {
           fullName: "بدون اسم",
           language: "fa",
           activeVehicleId: 1,
-          distanceUnit: "km",
-          fuelUnit: "L",
-          currencySymbol: "تومان",
+          distanceUnit: DEFAULT_DISTANCE_UNIT,
+          fuelUnit: DEFAULT_FUEL_UNIT,
+          currencySymbol: DEFAULT_CURRENCY_SYMBOL,
         })
         .returning();
 
