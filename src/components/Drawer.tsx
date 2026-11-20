@@ -4,6 +4,7 @@ import {
   CarIcon,
   HardDriveIcon,
   HistoryIcon,
+  TimerIcon,
   XIcon,
 } from "lucide-react-native";
 import { router } from "expo-router";
@@ -33,7 +34,12 @@ export default function AppDrawer({ visible, onClose }: Props) {
 
   const handleVehicles = () => {
     onClose();
-    router.navigate("/vehicles");
+    router.navigate("/(tabs)/(home)/vehicles");
+  };
+
+  const handleReminders = () => {
+    onClose();
+    router.navigate("/(tabs)/(home)/reminders");
   };
 
   const handleAbout = () => {
@@ -84,10 +90,16 @@ export default function AppDrawer({ visible, onClose }: Props) {
               description={t("drawer.subitemVehicle")}
               onPress={handleVehicles}
             />
+            <MenuItem
+              icon={<TimerIcon size={21} color={Theme.green} />}
+              title={t("drawer.itemReminder")}
+              description={t("drawer.subitemReminder")}
+              onPress={handleReminders}
+            />
 
             <View style={GlobalStyles.separator} />
             <MenuItem
-              icon={<BoxIcon size={21} color={Theme.success} />}
+              icon={<BoxIcon size={21} color={Theme.primaryDark} />}
               title={t("drawer.itemAbout")}
               description={t("drawer.subitemAbout")}
               onPress={handleAbout}

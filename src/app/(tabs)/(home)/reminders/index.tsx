@@ -33,6 +33,8 @@ export default function RemindersScreen() {
       title: t("menus.reminders"),
       headerLargeTitle: true,
       headerTitleAlign: "center",
+      headerLeft: () => <></>,
+      headerRight: () => <></>,
     });
   }, [navigation, t]);
 

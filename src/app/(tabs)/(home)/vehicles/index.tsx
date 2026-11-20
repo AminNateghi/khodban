@@ -28,6 +28,8 @@ export default function VehiclesScreen() {
       title: t("menus.vehicles"),
       headerLargeTitle: false,
       headerTitleAlign: "center",
+      headerLeft: () => <></>,
+      headerRight: () => <></>,
     });
   }, [navigation, t]);
 

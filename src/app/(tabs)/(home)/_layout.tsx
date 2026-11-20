@@ -9,6 +9,8 @@ export default function HomeLayout() {
       <Stack.Screen name="recent-changes" />
       <Stack.Screen name="onboarding" />
       <Stack.Screen name="database" />
+      <Stack.Screen name="vehicles" options={{ headerShown: false }} />
+      <Stack.Screen name="reminders" options={{ headerShown: false }} />
     </Stack>
   );
 }

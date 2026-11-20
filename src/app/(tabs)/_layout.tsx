@@ -4,7 +4,6 @@ import {
   FuelIcon,
   HistoryIcon,
   LayoutDashboardIcon,
-  TimerIcon,
   WrenchIcon,
 } from "lucide-react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -83,22 +82,6 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="services"
-        options={{
-          title: t("menus.services"),
-          tabBarIcon: ({ color, size }) => (
-            <WrenchIcon size={size} color={color} />
-          ),
-        }}
-        listeners={{
-          tabPress: (e) => {
-            e.preventDefault();
-            router.navigate("/(tabs)/services");
-          },
-        }}
-      />
-
-      <Tabs.Screen
         name="fuel"
         options={{
           title: t("menus.fuel"),
@@ -115,6 +98,22 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
+        name="services"
+        options={{
+          title: t("menus.services"),
+          tabBarIcon: ({ color, size }) => (
+            <WrenchIcon size={size} color={color} />
+          ),
+        }}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault();
+            router.navigate("/(tabs)/services");
+          },
+        }}
+      />
+
+      <Tabs.Screen
         name="expenses"
         options={{
           title: t("menus.expenses"),
@@ -126,22 +125,6 @@ export default function TabLayout() {
           tabPress: (e) => {
             e.preventDefault();
             router.navigate("/(tabs)/expenses");
-          },
-        }}
-      />
-
-      <Tabs.Screen
-        name="reminders"
-        options={{
-          title: t("menus.reminders"),
-          tabBarIcon: ({ color, size }) => (
-            <TimerIcon size={size} color={color} />
-          ),
-        }}
-        listeners={{
-          tabPress: (e) => {
-            e.preventDefault();
-            router.navigate("/(tabs)/reminders");
           },
         }}
       />

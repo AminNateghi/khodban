@@ -59,6 +59,8 @@
     "subitemRecentChanges": "See the latest app updates",
     "vehicles": "My Vehicles",
     "subitemVehicle": "See your vehicles",
+    "itemReminder": "Reminders",
+    "subitemReminder": "Management reminders",
     "itemAbout": "About",
     "subitemAbout": "Learn about the app",
     "itemDatabase": "Backup/Restore",
