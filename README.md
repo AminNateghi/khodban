@@ -39,7 +39,7 @@ Log refueling, periodic services, vehicle expenses, and set odometer/date
 
 # Download
 
-<a href='https://github.com/AminNateghi/khodban/releases/latest'><img height=70 alt='Get it on GitHub' src='https://raw.githubusercontent.com/AminNateghi/khodban/refs/heads/main/assets/github.svg'/></a>
+<a href='https://github.com/AminNateghi/khodban/releases/latest'><img height=70 alt='Get it on GitHub' src='https://raw.githubusercontent.com/AminNateghi/khodban/refs/heads/main/assets/github.png'/></a>
 
 ## Requirements
 
@@ -142,7 +142,7 @@ No auth, no network. `query-client.ts` is a bare `new QueryClient()`.
 
 # دانلود
 
-<a href='https://github.com/AminNateghi/khodban/releases/latest'><img height=70 alt='Get it on GitHub' src='./assets/github.svg'/></a>
+<a href='https://github.com/AminNateghi/khodban/releases/latest'><img height=70 alt='Get it on GitHub' src='./assets/github.png'/></a>
 <a href='https://cafebazaar.ir/app/xyz.nateghi.khodban'><img height=70 alt='Get it on CafeBazaar' src='./assets/cafebazaar.png'/></a>
 
   </div>
