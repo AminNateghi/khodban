@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Text } from "./Text";
 import { Theme } from "@/constants";
 import { useTranslation } from "@/languages/useTranslation";
+import { numberFormat } from "@/utils/number-format";
 
 interface Props {
   totalSpent: number;
@@ -22,28 +23,26 @@ export default function DonutChart(props: Props) {
   const servicePercentage = getPercentage(props.totalServiceCost);
   const expensesPercentage = getPercentage(props.totalExpenses);
 
-  const formatAmount = (value: number) =>
-    `${value.toLocaleString(undefined, {
-      maximumFractionDigits: 2,
-    })}`;
-
   const categories = [
     {
       value: expensesPercentage,
       color: Theme.violet,
       gradientCenterColor: Theme.violet,
+      text: `${expensesPercentage}%`,
       focused: false,
     },
     {
       value: servicePercentage,
       color: Theme.mulberry,
       gradientCenterColor: Theme.mulberry,
+      text: `${servicePercentage}%`,
       focused: false,
     },
     {
       value: fuelPercentage,
       color: Theme.orange,
       gradientCenterColor: Theme.orange,
+      text: `${fuelPercentage}%`,
       focused: false,
     },
   ];
@@ -104,10 +103,13 @@ export default function DonutChart(props: Props) {
           <PieChart
             data={pieData}
             donut
-            showGradient
+            showText
+            textColor={Theme.surface}
+            textSize={16}
+            innerCircleBorderWidth={2}
             sectionAutoFocus
-            radius={90}
-            innerRadius={60}
+            radius={120}
+            innerRadius={65}
             innerCircleColor={Theme.surface}
             centerLabelComponent={() => (
               <View
@@ -118,11 +120,11 @@ export default function DonutChart(props: Props) {
               >
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: "bold",
                   }}
                 >
-                  {formatAmount(total)}
+                  {numberFormat(total, { isRTL })}
                 </Text>
                 <Text style={{ fontSize: 12 }}>
                   {t("dashboard.totalSpent")}
