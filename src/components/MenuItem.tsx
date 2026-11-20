@@ -61,13 +61,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   itemTitle: {
-    fontSize: 15,
-    fontWeight: "600",
-    color: "#111827",
+    fontSize: 14,
+    fontWeight: "bold",
+    color: Theme.text,
   },
   itemDescription: {
     fontSize: 12,
     color: "#6B7280",
-    marginTop: 4,
+    marginTop: 1,
   },
 });

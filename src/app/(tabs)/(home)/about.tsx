@@ -69,7 +69,8 @@ export default function AboutScreen() {
       <Text style={styles.appName}>{t("app.name")}</Text>
       <Text style={styles.title}>{t("app.description")}</Text>
       <Text style={styles.version}>
-        {convertEnglishNumberToPersian(currentVersion)}
+        {t("about.version")}
+        {isRTL ? convertEnglishNumberToPersian(currentVersion) : currentVersion}
       </Text>
 
       <Card style={{ marginTop: 10 }}>

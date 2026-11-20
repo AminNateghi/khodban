@@ -4,18 +4,22 @@ const config: ExpoConfig = {
   name: "Khodban",
   slug: "khodban",
   scheme: "xyz.nateghi.khodban",
-  version: "2.0.2",
+  version: "2.0.3",
   orientation: "portrait",
   icon: "./assets/images/icon.png",
   userInterfaceStyle: "automatic",
   platforms: ["android"],
   android: {
-    versionCode: 202,
+    versionCode: 203,
     package: "xyz.nateghi.khodban",
     predictiveBackGestureEnabled: false,
     softwareKeyboardLayoutMode: "resize",
     permissions: ["POST_NOTIFICATIONS", "VIBRATE"],
     blockedPermissions: ["android.permission.SYSTEM_ALERT_WINDOW"],
+  },
+  experiments: {
+    typedRoutes: true,
+    reactCompiler: true,
   },
   plugins: [
     "expo-router",
@@ -47,10 +51,6 @@ const config: ExpoConfig = {
     ],
     "./plugins/with-android-release-signing",
   ],
-  experiments: {
-    typedRoutes: true,
-    reactCompiler: true,
-  },
 };
 
 export default config;
