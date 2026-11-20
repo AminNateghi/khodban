@@ -1,9 +1,17 @@
-import { Modal, Pressable, ScrollView, StyleSheet, View } from "react-native";
+import {
+  Image,
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import {
   BoxIcon,
   CarIcon,
   HardDriveIcon,
   HistoryIcon,
+  MessageSquareTextIcon,
   TimerIcon,
   XIcon,
 } from "lucide-react-native";
@@ -42,6 +50,11 @@ export default function AppDrawer({ visible, onClose }: Props) {
     router.navigate("/(tabs)/(home)/reminders");
   };
 
+  const handleDisclaimer = () => {
+    onClose();
+    router.navigate("/(tabs)/(home)/disclaimer");
+  };
+
   const handleAbout = () => {
     onClose();
     router.navigate("/about");
@@ -63,9 +76,15 @@ export default function AppDrawer({ visible, onClose }: Props) {
 
         <View style={styles.drawer}>
           <View style={styles.header}>
-            <View>
-              <Text style={styles.appName}>{t("app.name")}</Text>
-              <Text style={styles.subtitle}>{t("app.description")}</Text>
+            <View style={styles.iconRow}>
+              <Image
+                source={require("./../../assets/images/icon-transparency.png")}
+                style={styles.icon}
+              />
+              <View>
+                <Text style={styles.appName}>{t("app.name")}</Text>
+                <Text style={styles.subtitle}>{t("app.description")}</Text>
+              </View>
             </View>
 
             <Pressable
@@ -113,12 +132,18 @@ export default function AppDrawer({ visible, onClose }: Props) {
 
             <Language />
 
-            <View style={GlobalStyles.separator} />
             <MenuItem
               icon={<HardDriveIcon size={21} color={Theme.text} />}
               title={t("drawer.itemDatabase")}
               description={t("drawer.subitemDatabase")}
               onPress={handleDatabase}
+            />
+            <View style={GlobalStyles.separator} />
+            <MenuItem
+              icon={<MessageSquareTextIcon size={21} color={Theme.orange} />}
+              title={t("drawer.disclaimer")}
+              description={t("drawer.disclaimerPrompt")}
+              onPress={handleDisclaimer}
             />
           </ScrollView>
 
@@ -148,14 +173,14 @@ const styles = StyleSheet.create({
     paddingBottom: 22,
   },
   appName: {
-    fontSize: 25,
+    fontSize: 22,
     fontWeight: "700",
     color: Theme.text,
   },
   subtitle: {
     fontSize: 13,
     color: "#6B7280",
-    marginTop: 4,
+    marginTop: 1,
   },
   closeButton: {
     padding: 8,
@@ -175,5 +200,12 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 12,
+  },
+  icon: { width: 45, height: 45, borderRadius: 12 },
+  iconRow: {
+    flexDirection: "row",
+    gap: 10,
+    alignContent: "center",
+    alignItems: "center",
   },
 });

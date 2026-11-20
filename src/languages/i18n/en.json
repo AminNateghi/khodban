@@ -53,7 +53,7 @@
     "closeDrawer": "Close menu",
     "sectionSettings": "Settings",
     "sectionApplication": "Application",
-    "itemLanguage": "Language",
+    "itemLanguage": "Language (زبان)",
     "subitemLanguage": "Change app language",
     "itemRecentChanges": "Recent changes",
     "subitemRecentChanges": "See the latest app updates",
@@ -66,7 +66,9 @@
     "itemDatabase": "Backup/Restore",
     "subitemDatabase": "Backup and Restore data",
     "itemUpdate": "App Version",
-    "subitemUpdate": "Check application version"
+    "subitemUpdate": "Check application version",
+    "disclaimer": "Disclaimer",
+    "disclaimerPrompt": "Tips for using the app"
   },
   "settings": {
     "distanceUnit": "Distance unit",
@@ -471,21 +473,16 @@
     "slide4Title": "Reminder & Offline",
     "slide4Description": "Receive service-related reminders on time; this app does not require an internet connection and works entirely offline."
   },
-  "checkUpdate": {
-    "title": "Check for Update",
-    "loading": "Checking...",
-    "newVersion": "New Version",
-    "checkForUpdate": "Check version",
-    "buttonDownload": "Download new version",
-    "error": "Error checking the application version.",
-    "noUpdateAvailable": "No APK found in the latest GitHub release.",
-    "updateAvailable": "A new version of the application has been released."
-  },
   "about": {
-    "description": "Offline-first app for log refueling, periodic services, vehicle expenses, and set odometer/date",
+    "description": "`Khodban` is a personal automotive assistant that allows you to log refueling records, periodic maintenance, and various miscellaneous expenses. It also provides reminders for scheduled maintenance, helping you avoid costly vehicle repairs. Khodban is a completely free Android application that functions offline—requiring no internet connection, user registration, or subscription fees. All your vehicle data is stored locally on your own device. Simply record the current odometer reading in the app after every refueling or repair, and it will automatically calculate when your next maintenance service is due.",
+    "version": "Version: ",
     "developedBy": "Developed by",
     "developerName": "Amin Nateghi",
     "sourceOn": "Source-code on",
     "github": "GitHub"
+  },
+  "disclaimer": {
+    "title": "Disclaimer",
+    "content": "Dear User,\n\nPlease keep the following points in mind while using this application:\nThis application is designed to assist in tracking and managing periodic vehicle maintenance and expenses. By using this app, you acknowledge that it is in no way a substitute for professional inspections conducted by authorized dealerships or qualified mechanics. Furthermore, the developer assumes no responsibility for any damage to your vehicle resulting from the use of automotive parts or consumables—whether genuine or non-genuine.\nThe initial version of this app was created for the developer's personal use; subsequent features were added to address the specific needs of the Iranian automotive market. This application was developed without any financial gain or external funding, and the creator provides no guarantees regarding its long-term performance or reliability.\nPrivacy was a core principle during the development of this app; consequently, it does not store or transmit any data over the internet, nor does it collect any marketing-related information. The app functions entirely offline and requires no internet connection. Additionally, there is no registration process or subscription fee—it is completely free to use.\nPlease note that all data and information entered into the app are stored locally on your device. Therefore, the user assumes full responsibility for any data loss resulting from device malfunctions—whether software-related or hardware-related.\nAll calculations within the app depend entirely on the accuracy of the data entered by the user and may not always be precise. This application is intended solely for logging expenses and tracking periodic maintenance to ensure these tasks are not overlooked.\n\nThank you,\nKhodban"
   }
 }
