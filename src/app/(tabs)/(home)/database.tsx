@@ -4,6 +4,7 @@ import { ConfirmationDialog } from "@/components/ConfirmationDialog";
 import { Text } from "@/components/Text";
 import { db, sqlite } from "@/db";
 import { vehiclesRecords } from "@/db/schema";
+import migrations from "@/db/migrations/migrations";
 import { Theme } from "@/constants";
 import { useTranslation } from "@/languages/useTranslation";
 import { Toast } from "@/components/CustomToast";
@@ -19,6 +20,7 @@ import {
   openDatabaseAsync,
   type SQLiteDatabase,
 } from "expo-sqlite";
+import { migrate } from "drizzle-orm/expo-sqlite/migrator";
 import { router, useNavigation } from "expo-router";
 import { useLayoutEffect, useRef, useState } from "react";
 import { Platform, ScrollView, StyleSheet } from "react-native";
@@ -185,6 +187,7 @@ export default function DatabaseScreen() {
         sourceDatabase,
         destDatabase: sqlite,
       });
+      await migrate(db, migrations);
       let notificationSyncFailed = false;
       try {
         await removeAllReminderNotifications();
