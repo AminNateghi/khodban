@@ -1,9 +1,10 @@
-import { PieChart } from "react-native-gifted-charts";
+import { DonutChart as Chart } from "react-native-chart-kit/v2";
 import { View } from "react-native";
 import { Text } from "./Text";
 import { Theme } from "@/constants";
 import { useTranslation } from "@/languages/useTranslation";
 import { numberFormat } from "@/utils/number-format";
+import { useState } from "react";
 
 interface Props {
   totalSpent: number;
@@ -14,6 +15,7 @@ interface Props {
 
 export default function DonutChart(props: Props) {
   const { t, isRTL } = useTranslation();
+  const [selectedIndex, setSelectedIndex] = useState(99); // 99 for total cost
 
   const total = props.totalSpent;
   const getPercentage = (value: number) =>
@@ -23,41 +25,23 @@ export default function DonutChart(props: Props) {
   const servicePercentage = getPercentage(props.totalServiceCost);
   const expensesPercentage = getPercentage(props.totalExpenses);
 
-  const categories = [
+  const chartData = [
     {
+      label: t("dashboard.expenses"),
       value: expensesPercentage,
       color: Theme.violet,
-      gradientCenterColor: Theme.violet,
-      text: `${expensesPercentage}%`,
-      focused: false,
     },
     {
+      label: t("dashboard.serviceCosts"),
       value: servicePercentage,
       color: Theme.mulberry,
-      gradientCenterColor: Theme.mulberry,
-      text: `${servicePercentage}%`,
-      focused: false,
     },
     {
+      label: t("dashboard.fuelCosts"),
       value: fuelPercentage,
       color: Theme.orange,
-      gradientCenterColor: Theme.orange,
-      text: `${fuelPercentage}%`,
-      focused: false,
     },
   ];
-
-  // Highlight the category with the highest value
-  const maxIndex = categories.reduce(
-    (max, item, index, array) => (item.value > array[max].value ? index : max),
-    0,
-  );
-
-  if (total > 0) {
-    categories[maxIndex].focused = true;
-  }
-
-  const pieData = categories.filter((item) => item.value > 0);
 
   const renderDot = (color: string) => (
     <View
@@ -83,7 +67,7 @@ export default function DonutChart(props: Props) {
     >
       {renderDot(color)}
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 13 }}>{label}</Text>
+        <Text style={{ fontSize: 12 }}>{label}</Text>
       </View>
     </View>
   );
@@ -100,37 +84,54 @@ export default function DonutChart(props: Props) {
         }}
       >
         <View style={{ padding: 20, alignItems: "center" }}>
-          <PieChart
-            data={pieData}
-            donut
-            showText
-            textColor={Theme.surface}
-            textSize={16}
-            innerCircleBorderWidth={2}
-            sectionAutoFocus
-            radius={120}
-            innerRadius={65}
-            innerCircleColor={Theme.surface}
-            centerLabelComponent={() => (
-              <View
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 16,
-                    fontWeight: "bold",
-                  }}
-                >
-                  {numberFormat(total, { isRTL })}
-                </Text>
-                <Text style={{ fontSize: 12 }}>
-                  {t("dashboard.totalSpent")}
-                </Text>
-              </View>
-            )}
+          <Chart
+            data={chartData}
+            valueKey="value"
+            labelKey="label"
+            width={410}
+            height={260}
+            legend={false}
+            centerLabel={
+              <>
+                {selectedIndex === 99 && (
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {numberFormat(total, { isRTL })}
+                    </Text>
+                    <Text style={{ fontSize: 12 }}>
+                      {t("dashboard.totalSpent")}
+                    </Text>
+                  </View>
+                )}
+                {selectedIndex !== 99 && (
+                  <View>
+                    <Text style={{ textAlign: "center" }}>
+                      {chartData[selectedIndex]?.label}
+                    </Text>
+                    <Text style={{ textAlign: "center" }}>
+                      {numberFormat(chartData[selectedIndex]?.value, { isRTL })}
+                      %
+                    </Text>
+                  </View>
+                )}
+              </>
+            }
+            interaction={{
+              mode: "tap",
+              onSelect: (event) => setSelectedIndex(event.index),
+              onDeselect: () => setSelectedIndex(99),
+            }}
+            activeSlice={{ inactiveOpacity: 0.36, strokeWidth: 2 }}
           />
         </View>
 
@@ -138,7 +139,6 @@ export default function DonutChart(props: Props) {
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "space-between",
             flexWrap: "wrap",
           }}
         >

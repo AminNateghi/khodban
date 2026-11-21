@@ -20,7 +20,7 @@ export function SelectVehicle() {
   const { statistics } = useStatistics();
   const { data: vehicles = [] } = useVehicles();
   const { data: profile } = useGetProfile();
-  const { mutate: selectVehicle } = useSelectVehicle();
+  const { mutate: selectVehicle, isPending } = useSelectVehicle();
 
   const activeVehicle = vehicles.find(
     (vehicle) => vehicle.id === profile?.activeVehicleId,
@@ -56,7 +56,7 @@ export function SelectVehicle() {
       </Pressable>
 
       <Modal
-        title={t("vehicles.selectVehicle")}
+        title={isPending ? t("common.loading") : t("vehicles.selectVehicle")}
         visible={visible}
         onClose={() => setVisible(false)}
       >
